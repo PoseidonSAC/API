@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                  // Versión de ECMAScript objetivo
+      "module": "CommonJS",            // Módulo compatible con Node.js
+      "strict": true,                  // Habilitar estrictas comprobaciones de tipo
+      "esModuleInterop": true,         // Importar módulos CommonJS correctamente
+      "forceConsistentCasingInFileNames": true, 
+      "skipLibCheck": true,            // Saltar la verificación de tipos en dependencias
+      "outDir": "./dist",              // Directorio de salida para los archivos compilados
+      "rootDir": "./src"               // Directorio raíz de los archivos fuente
+    },
+    "include": ["src/**/*.ts"],        // Archivos a incluir
+    "exclude": ["node_modules"]        // Archivos a excluir
+  }
+  
