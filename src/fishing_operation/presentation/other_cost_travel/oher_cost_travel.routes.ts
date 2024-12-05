@@ -2,7 +2,7 @@ import { Router } from "express";
 import { OtherCostTravelController } from "./other_cost_travel.controller";
 
 export class OtherCostTravelRoutes {
-  private router: Router;
+  private router = Router();
   private controller = new OtherCostTravelController();
   constructor() {
     this.router.get("/", this.controller.getAll);
