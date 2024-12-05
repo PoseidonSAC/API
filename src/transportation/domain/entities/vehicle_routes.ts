@@ -3,7 +3,7 @@ export interface VehicleRoutes {
   id_vehicle_route: number;
   oil_use: number;
   oil_cost: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: Date;
+  updatedAt: Date;
   id_person: number;
 }

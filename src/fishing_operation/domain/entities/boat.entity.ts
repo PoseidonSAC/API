@@ -1,7 +1,8 @@
-export interface Person {
+export interface Boat {
   id: number;
   name: string;
-  phone: string;
+  title: string;
+  capacity: number;
   createdAt: Date;
   updatedAt: Date;
 }

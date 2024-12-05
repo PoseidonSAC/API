@@ -7,4 +7,6 @@ export interface ChargerOperation {
   grocer: number;
   boxes: number;
   weight: number;
+  updateAt: Date;
+  createdAt: Date;
 }

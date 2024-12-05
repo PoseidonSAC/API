@@ -5,4 +5,6 @@ export interface Vehicle {
   plate: string;
   type: string;
   phone: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

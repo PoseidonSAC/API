@@ -4,4 +4,6 @@ export interface Loan {
   id_client: number;
   mount: number;
   id_charge_option: number;
+  createdAt: Date;
+  updatedAt: Date;
 }

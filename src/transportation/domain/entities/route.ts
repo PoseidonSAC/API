@@ -4,6 +4,6 @@ export interface Route {
   end: string;
   type: string;
   oil_use: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }

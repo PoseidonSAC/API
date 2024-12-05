@@ -1,10 +1,10 @@
-export interface LoanDetail {
+export interface Fishing {
   id: number;
-  id_loan: number;
   fish: string;
-  weight: number;
   price: number;
-  mount: number;
+  boxes: number;
+  weight: number;
+  id_travel: number;
   createdAt: Date;
   updatedAt: Date;
 }
