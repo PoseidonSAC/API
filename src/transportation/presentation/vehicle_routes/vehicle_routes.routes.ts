@@ -1,28 +1,18 @@
 import { Router } from "express";
+import { VehicleController } from "../../../operation/presentation/vehicle/vehicle.controller";
 
 export class VehicleRoutes {
-  private router: Router;
+  private router = Router();
+  private controller = new VehicleController();
   constructor() {
-    this.router = Router();
+    this.router.get("/", this.controller.getAll);
+    this.router.post("/", this.controller.create);
+    this.router.put("/:id", this.controller.update);
+    this.router.delete("/:id", this.controller.delete);
+    this.router.get("/:id", this.controller.getById);
   }
 
-  setRoutes() {
-    this.router.get("/", (req, res) => {
-      console.log("get all vehicle");
-    });
-    this.router.post("/", (req, res) => {
-      console.log("create vehicle");
-    });
-    this.router.put("/:id", (req, res) => {
-      console.log("update vehicle");
-    });
-    this.router.delete("/:id", (req, res) => {
-      console.log("delete vehicle");
-    });
-    this.router.get("/:id", (req, res) => {
-      console.log("get vehicle by id");
-    });
-
+  getRoutes() {
     return this.router;
   }
 }

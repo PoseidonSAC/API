@@ -2,8 +2,8 @@ export interface OtherCostChargerOperation {
   id: number;
   description: string;
   price: number;
-  id_operation: number;
+  id_charger_operation: number;
   id_person: number;
-  updateAt: Date;
+  updatedAt: Date;
   createdAt: Date;
 }
