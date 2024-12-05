@@ -1,28 +1,17 @@
 import { Router } from "express";
+import { OtherCostTravelController } from "./other_cost_travel.controller";
 
 export class OtherCostTravelRoutes {
   private router: Router;
+  private controller = new OtherCostTravelController();
   constructor() {
-    this.router = Router();
+    this.router.get("/", this.controller.getAll);
+    this.router.post("/", this.controller.create);
+    this.router.put("/:id", this.controller.update);
+    this.router.delete("/:id", this.controller.delete);
+    this.router.get("/:id", this.controller.getById);
   }
-
-  setRoutes() {
-    this.router.get("/", (req, res) => {
-      console.log("get all other cost travel");
-    });
-    this.router.post("/", (req, res) => {
-      console.log("create other cost travel");
-    });
-    this.router.put("/:id", (req, res) => {
-      console.log("update other cost travel");
-    });
-    this.router.delete("/:id", (req, res) => {
-      console.log("delete other cost travel");
-    });
-    this.router.get("/:id", (req, res) => {
-      console.log("get other cost travel by id");
-    });
-
+  getRoutes() {
     return this.router;
   }
 }

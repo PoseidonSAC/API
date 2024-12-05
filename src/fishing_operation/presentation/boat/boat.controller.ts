@@ -5,21 +5,8 @@ import {
   GetAllBoatUseCase,
   UpdateBoatUseCase,
 } from "../../domain/usecases/boat";
-
 import { Request, Response } from "express";
-import zod from "zod";
-
-class BoatValidation {
-  static boatSchema = zod.object({
-    name: zod.string().min(3).max(255),
-    title: zod.string().min(3).max(255),
-    capacity: zod.number(),
-  });
-
-  static validateCreate(data: any) {
-    return this.boatSchema.safeParse(data);
-  }
-}
+import { BoatValidation } from "./boat.validation";
 
 export class BoatController {
   private getBoatByIdUseCase = new GetBoatByIdUseCase();

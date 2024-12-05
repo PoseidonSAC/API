@@ -51,4 +51,13 @@ export class FishingRepository {
       },
     });
   }
+
+  async findByTravelId(id_travel: number): Promise<Fishing[]> {
+    const fishing = await db.fishing.findMany({
+      where: {
+        id_travel: id_travel,
+      },
+    });
+    return fishing;
+  }
 }

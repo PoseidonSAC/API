@@ -53,4 +53,13 @@ export class OtherCostTravelRepository {
       },
     });
   }
+
+  async findByTravelId(id_travel: number): Promise<OtherCostTravel[]> {
+    const other_cost_travel = await db.other_cost_travel.findMany({
+      where: {
+        id_travel: id_travel,
+      },
+    });
+    return other_cost_travel;
+  }
 }

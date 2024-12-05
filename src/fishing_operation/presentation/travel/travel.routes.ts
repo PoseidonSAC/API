@@ -1,30 +1,19 @@
 import { Router } from "express";
+import { TravelController } from "./travel.controller";
 
 export class TravelRoutes {
-  private router: Router;
+  private router = Router();
+  private controller = new TravelController();
   constructor() {
-    this.router = Router();
+    this.router.get("/", this.controller.getAll);
+    this.router.post("/", this.controller.create);
+    this.router.put("/:id", this.controller.update);
+    this.router.delete("/:id", this.controller.delete);
+    this.router.get("/:id", this.controller.getById);
+    this.router.get("/resume/:id", this.controller.resume);
   }
 
-  setRoutes() {
-    this.router.get("/", (req, res) => {
-      console.log("get all travel");
-    });
-    this.router.post("/", (req, res) => {
-      console.log("create travel");
-    });
-    this.router.put("/:id", (req, res) => {
-      console.log("update travel");
-    });
-    this.router.delete("/:id", (req, res) => {
-      console.log("delete travel");
-    });
-    this.router.get("/:id", (req, res) => {
-      console.log("get travel by id");
-    });
-
-    // TODO RESUMEN DEL VIAJE GASTOS SUMA DE GASTOS + GASTOS DE VIAJE + GANANCIA + DIVISION DE GANANCIA
-
+  getRoutes() {
     return this.router;
   }
 }
