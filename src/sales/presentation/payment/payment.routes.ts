@@ -1,28 +1,17 @@
 import { Router } from "express";
-
+import { PaymentController } from "./payment.controller";
 export class PaymentRoutes {
-  private router: Router;
+  private router = Router();
+  private controller = new PaymentController();
   constructor() {
-    this.router = Router();
+    this.router.get("/", this.controller.getAll);
+    this.router.post("/", this.controller.create);
+    this.router.put("/:id", this.controller.update);
+    this.router.delete("/:id", this.controller.delete);
+    this.router.get("/:id", this.controller.getById);
   }
 
-  setRoutes() {
-    this.router.get("/", (req, res) => {
-      console.log("get all payment");
-    });
-    this.router.post("/", (req, res) => {
-      console.log("create payment");
-    });
-    this.router.put("/:id", (req, res) => {
-      console.log("update payment");
-    });
-    this.router.delete("/:id", (req, res) => {
-      console.log("delete payment");
-    });
-    this.router.get("/:id", (req, res) => {
-      console.log("get payment by id");
-    });
-
+  getRoutes() {
     return this.router;
   }
 }

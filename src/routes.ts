@@ -26,12 +26,12 @@ export class Routes {
   setPrivateRoutes() {
     this.routerPrivate.use(jwtMiddleware);
     this.routerPrivate.use("/fishing", this.FishingRoutes.getRoutes());
-    this.routerPrivate.use("/sales", this.SalesRoutes.setRoutes());
+    this.routerPrivate.use("/sales", this.SalesRoutes.getRoutes());
     this.routerPrivate.use(
       "/transportation",
       this.TransportationRoutes.setRoutes()
     );
-    this.routerPrivate.use("/operation", this.OperationRoutes.setRoutes());
+    this.routerPrivate.use("/operation", this.OperationRoutes.getRoutes());
 
     return this.routerPrivate;
   }

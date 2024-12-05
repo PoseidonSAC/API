@@ -22,7 +22,7 @@ export class OperationRoutes {
     this.router.use("/vehicle", this.vehicleRoutes.getRoutes());
   }
 
-  setRoutes() {
+  getRoutes() {
     return this.router;
   }
 }

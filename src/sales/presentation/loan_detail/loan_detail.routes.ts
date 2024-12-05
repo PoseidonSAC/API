@@ -1,28 +1,17 @@
 import { Router } from "express";
+import { LoanDetailController } from "./loan_detail.controller";
 
 export class LoanDetailRoutes {
-  private router: Router;
+  private router = Router();
+  private controller = new LoanDetailController();
   constructor() {
-    this.router = Router();
+    this.router.get("/", this.controller.getAll);
+    this.router.post("/", this.controller.create);
+    this.router.put("/:id", this.controller.update);
+    this.router.delete("/:id", this.controller.delete);
+    this.router.get("/:id", this.controller.getById);
   }
-
-  setRoutes() {
-    this.router.get("/", (req, res) => {
-      console.log("get all loan detail");
-    });
-    this.router.post("/", (req, res) => {
-      console.log("create loan detail");
-    });
-    this.router.put("/:id", (req, res) => {
-      console.log("update loan detail");
-    });
-    this.router.delete("/:id", (req, res) => {
-      console.log("delete loan detail");
-    });
-    this.router.get("/:id", (req, res) => {
-      console.log("get loan detail by id");
-    });
-
+  getRoutes() {
     return this.router;
   }
 }

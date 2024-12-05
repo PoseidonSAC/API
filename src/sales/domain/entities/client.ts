@@ -1,7 +1,8 @@
 export interface Client {
-  id: string;
+  id: number;
   name: string;
   phone: string;
+  state: string;
   createdAt: Date;
   updatedAt: Date;
 }
