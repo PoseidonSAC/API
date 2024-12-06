@@ -1,28 +1,18 @@
 import { Router } from "express";
+import { RouteController } from "./route.controller";
 
 export class RouteRoutes {
-  private router: Router;
+  private router = Router();
+  private controller = new RouteController();
   constructor() {
-    this.router = Router();
+    this.router.get("/", this.controller.getAll);
+    this.router.post("/", this.controller.create);
+    this.router.put("/:id", this.controller.update);
+    this.router.delete("/:id", this.controller.delete);
+    this.router.get("/:id", this.controller.getById);
   }
 
-  setRoutes() {
-    this.router.get("/", (req, res) => {
-      console.log("get all route");
-    });
-    this.router.post("/", (req, res) => {
-      console.log("create route");
-    });
-    this.router.put("/:id", (req, res) => {
-      console.log("update route");
-    });
-    this.router.delete("/:id", (req, res) => {
-      console.log("delete route");
-    });
-    this.router.get("/:id", (req, res) => {
-      console.log("get route by id");
-    });
-
+  getRoutes() {
     return this.router;
   }
 }

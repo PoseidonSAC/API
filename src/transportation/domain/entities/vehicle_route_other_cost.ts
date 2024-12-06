@@ -1,9 +1,9 @@
 export interface VehicleRouteOtherCost {
   id: number;
-  vehicle_route_id: number;
+  id_vehicle_route: number;
   price: number;
   description: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   id_person: number;
 }

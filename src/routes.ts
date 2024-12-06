@@ -29,7 +29,7 @@ export class Routes {
     this.routerPrivate.use("/sales", this.SalesRoutes.getRoutes());
     this.routerPrivate.use(
       "/transportation",
-      this.TransportationRoutes.setRoutes()
+      this.TransportationRoutes.getRoutes()
     );
     this.routerPrivate.use("/operation", this.OperationRoutes.getRoutes());
 
