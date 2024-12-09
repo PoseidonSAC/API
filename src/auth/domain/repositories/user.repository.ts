@@ -5,16 +5,16 @@ export class UserRepository {
     return await db.user.create({
       data: {
         name: user.name,
-        email: user.email,
+        code: user.code,
         password: user.password,
         id_role: user.id_role,
       },
     });
   }
-  async findByEmail(email: string) {
+  async findByCode(code: string) {
     return await db.user.findUnique({
       where: {
-        email,
+        code,
       },
       include: {
         role: true,

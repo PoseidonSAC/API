@@ -12,7 +12,7 @@ export class Register {
     this.RoleRepository = new RoleRepository();
   }
   async execute(dto: UserRegisterDto): Promise<UserSessionDto> {
-    const userFound = await this.userRepository.findByEmail(dto.email);
+    const userFound = await this.userRepository.findByCode(dto.code);
     if (userFound) {
       throw new Error("User already exists");
     }
@@ -28,14 +28,14 @@ export class Register {
     const user = await this.userRepository.save({
       id: 0,
       name: dto.name,
-      email: dto.email,
+      code: dto.code,
       password: passwordHash,
       id_role: role.id,
     });
 
     return {
       name: user.name,
-      email: user.email,
+      code: user.code,
     };
   }
 }

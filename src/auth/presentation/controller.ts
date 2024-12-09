@@ -19,6 +19,7 @@ export class UserController {
           secure: process.env.NODE_ENV === "production",
         })
         .json(user);
+      return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ error: error.message });
