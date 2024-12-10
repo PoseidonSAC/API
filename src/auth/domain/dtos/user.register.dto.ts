@@ -4,3 +4,10 @@ export interface UserRegisterDto {
   password: string;
   passwordConfirmation: string;
 }
+
+export interface UserRegisterRoleDto {
+  name: string;
+  code: string;
+  password: string;
+  id_role: number;
+}

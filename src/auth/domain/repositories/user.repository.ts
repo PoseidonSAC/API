@@ -1,7 +1,8 @@
 import { db } from "../../../core/config/db";
 import { User } from "../entities/user";
+import { UserRegisterRoleDto } from "../dtos/user.register.dto";
 export class UserRepository {
-  async save(user: User) {
+  async save(user: UserRegisterRoleDto) {
     return await db.user.create({
       data: {
         name: user.name,

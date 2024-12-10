@@ -26,7 +26,6 @@ export class Register {
     }
 
     const user = await this.userRepository.save({
-      id: 0,
       name: dto.name,
       code: dto.code,
       password: passwordHash,
