@@ -1,8 +1,8 @@
 import { FishingRepository } from "../../repositories/fishing.repository";
 
-export class GetByIdFishingUseCase {
+export class GetFishingByTravelIdUseCase {
   private repository = new FishingRepository();
   async execute(id: number) {
-    return this.repository.findById(id);
+    return this.repository.findByTravelId(id);
   }
 }

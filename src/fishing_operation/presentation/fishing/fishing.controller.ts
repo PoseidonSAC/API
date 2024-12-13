@@ -5,6 +5,7 @@ import {
   GetAllFishingUseCase,
   GetByIdFishingUseCase,
   UpdateFishingUseCase,
+  GetFishingByTravelIdUseCase,
 } from "../../domain//usecases/fishing";
 
 export class FishingController {
@@ -13,6 +14,7 @@ export class FishingController {
   private getAllFishingUseCase = new GetAllFishingUseCase();
   private getByIdFishingUseCase = new GetByIdFishingUseCase();
   private updateFishingUseCase = new UpdateFishingUseCase();
+  private getByTravelIdUseCase = new GetFishingByTravelIdUseCase();
 
   create = async (req: Request, res: Response) => {
     const fishing = req.body;
@@ -46,6 +48,13 @@ export class FishingController {
     const fishing = req.body;
     await this.updateFishingUseCase.execute(id, fishing);
     res.status(204).send();
+    return;
+  };
+
+  getByTravelId = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const fishing = await this.getByTravelIdUseCase.execute(id);
+    res.status(200).json(fishing);
     return;
   };
 }

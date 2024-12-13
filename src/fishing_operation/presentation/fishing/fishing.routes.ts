@@ -9,6 +9,7 @@ export class FishingRoutes {
     this.router.put("/:id", this.controller.update);
     this.router.delete("/:id", this.controller.delete);
     this.router.get("/:id", this.controller.getById);
+    this.router.get("/travel/:id", this.controller.getByTravelId);
   }
   getRoutes() {
     return this.router;

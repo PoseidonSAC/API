@@ -4,6 +4,7 @@ import {
   GetAllOtherCostTravelUseCase,
   GetByIdOtherCostTravelUseCase,
   UpdateOtherCostTravelUseCase,
+  GetOtherCostTravelByTravelIdUseCase,
 } from "../../domain/usecases/other_cost_travel";
 import { Request, Response } from "express";
 
@@ -13,6 +14,7 @@ export class OtherCostTravelController {
   private getAllOtherCostTravelUseCase = new GetAllOtherCostTravelUseCase();
   private getByIdOtherCostTravelUseCase = new GetByIdOtherCostTravelUseCase();
   private updateOtherCostTravelUseCase = new UpdateOtherCostTravelUseCase();
+  private getByTravelIdUseCase = new GetOtherCostTravelByTravelIdUseCase();
 
   create = async (req: Request, res: Response) => {
     const otherCostTravel = req.body;
@@ -50,6 +52,13 @@ export class OtherCostTravelController {
     const otherCostTravel = req.body;
     await this.updateOtherCostTravelUseCase.execute(id, otherCostTravel);
     res.status(204).send();
+    return;
+  };
+
+  getByTravelId = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const otherCostTravel = await this.getByTravelIdUseCase.execute(id);
+    res.status(200).json(otherCostTravel);
     return;
   };
 }

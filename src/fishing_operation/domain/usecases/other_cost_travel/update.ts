@@ -2,9 +2,8 @@ import { OtherCostTravelRepository } from "../../repositories/other_cost_travel.
 import { OtherCostTravelCreateDto } from "./../../dtos/other_cost_travel/create.dto";
 
 export class UpdateOtherCostTravelUseCase {
-  private otherCostTravelRepository = new OtherCostTravelRepository();
-
+  private repository = new OtherCostTravelRepository();
   async execute(id: number, otherCostTravel: OtherCostTravelCreateDto) {
-    return this.otherCostTravelRepository.update(id, otherCostTravel);
+    return this.repository.update(id, otherCostTravel);
   }
 }
