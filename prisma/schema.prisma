@@ -1,0 +1,242 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model boat {
+  id        Int      @id @default(autoincrement())
+  name      String
+  title     String
+  capacity  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  travel    travel[]
+}
+
+model travel {
+  id                Int                 @id @default(autoincrement())
+  id_boat           Int
+  oil_charge        Int
+  oil_charger_price Float
+  oil_consume       Int
+  oil_consume_price Float
+  oil_current       Int
+  provisions_cost   Float
+  gas_cylinder_cost Float               @default(0)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  boat              boat                @relation(fields: [id_boat], references: [id])
+  other_cost        other_cost_travel[]
+  fishing           fishing[]
+  charger_operation charger_operation?
+  id_person         Int
+  person            person              @relation(fields: [id_person], references: [id])
+}
+
+model other_cost_travel {
+  id          Int      @id @default(autoincrement())
+  id_travel   Int
+  description String
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  travel      travel   @relation(fields: [id_travel], references: [id])
+  id_person   Int
+  person      person   @relation(fields: [id_person], references: [id])
+}
+
+model fishing {
+  id        Int      @id @default(autoincrement())
+  id_travel Int
+  fish      String
+  price     Float
+  boxes     Int
+  weight    Float    @default(24)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  travel    travel   @relation(fields: [id_travel], references: [id])
+}
+
+model vehicle {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  user              String
+  plate             String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  type              String
+  phone             String
+  charger_operation charger_operation[]
+}
+
+model charger_operation {
+  id            Int                            @id @default(autoincrement())
+  id_travel     Int                            @unique
+  id_vehicle    Int
+  footboard     Float
+  helper        Float
+  grocer        Float
+  charger       Float
+  weight        Float
+  boxes         Int
+  createdAt     DateTime                       @default(now())
+  updatedAt     DateTime                       @updatedAt
+  travel        travel                         @relation(fields: [id_travel], references: [id])
+  vehicle       vehicle                        @relation(fields: [id_vehicle], references: [id])
+  other_cost    other_cost_charger_operation[]
+  vehicle_route vehicle_route[]
+  loan          loan[]
+  id_person     Int
+  person        person                         @relation(fields: [id_person], references: [id])
+}
+
+model other_cost_charger_operation {
+  id                   Int               @id @default(autoincrement())
+  id_charger_operation Int
+  description          String
+  price                Float
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  charger_operation    charger_operation @relation(fields: [id_charger_operation], references: [id])
+  id_person            Int
+  person               person            @relation(fields: [id_person], references: [id])
+}
+
+model route {
+  id            Int              @id @default(autoincrement())
+  init          String
+  end           String
+  type          String
+  oil_use       Int
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  vehicle_route vehicle_routes[]
+}
+
+model vehicle_route {
+  id                  Int                        @id @default(autoincrement())
+  id_charge_operation Int
+  state               String
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  charger_operation   charger_operation          @relation(fields: [id_charge_operation], references: [id])
+  routes              vehicle_routes[]
+  other_cost          vehicle_route_other_cost[]
+}
+
+model vehicle_routes {
+  id               Int           @id @default(autoincrement())
+  id_vehicle_route Int
+  id_route         Int
+  oil_use          Int
+  oil_cost         Float
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id])
+  route            route         @relation(fields: [id_route], references: [id])
+}
+
+model vehicle_route_other_cost {
+  id               Int           @id @default(autoincrement())
+  id_vehicle_route Int
+  description      String
+  price            Float
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id])
+  id_person        Int
+  person           person        @relation(fields: [id_person], references: [id])
+}
+
+model user {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String   @unique
+  id_role   Int
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      role     @relation(fields: [id_role], references: [id])
+}
+
+model role {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      user[]
+}
+
+model client {
+  id        Int       @id @default(autoincrement())
+  name      String
+  phone     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  state     String
+  loan      loan[]
+  payment   payment[]
+}
+
+model loan {
+  id                  Int               @id @default(autoincrement())
+  id_client           Int
+  id_charge_operation Int
+  mount               Float
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  client              client            @relation(fields: [id_client], references: [id])
+  loan_detail         loan_detail[]
+  charger_operation   charger_operation @relation(fields: [id_charge_operation], references: [id])
+  id_person           Int
+  person              person            @relation(fields: [id_person], references: [id])
+}
+
+model loan_detail {
+  id        Int      @id @default(autoincrement())
+  id_loan   Int
+  mount     Float
+  fish      String
+  weight    Float
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  loan      loan     @relation(fields: [id_loan], references: [id])
+}
+
+model payment {
+  id        Int      @id @default(autoincrement())
+  id_client Int
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  client    client   @relation(fields: [id_client], references: [id])
+  type      String
+  id_person Int
+  person    person   @relation(fields: [id_person], references: [id])
+}
+
+model person {
+  id                           Int                            @id @default(autoincrement())
+  name                         String
+  phone                        String
+  createdAt                    DateTime                       @default(now())
+  updatedAt                    DateTime                       @updatedAt
+  loan                         loan[]
+  payment                      payment[]
+  other_cost_travel            other_cost_travel[]
+  other_cost_charger_operation other_cost_charger_operation[]
+  vehicle_route_other_cost     vehicle_route_other_cost[]
+  charger_operation            charger_operation[]
+  travel                       travel[]
+}
