@@ -10,11 +10,9 @@ export class TravelRepository {
         oil_charger_price: travel.oil_charger_price,
         oil_consume: travel.oil_consume,
         oil_consume_price: travel.oil_consume_price,
-        oil_current: travel.oil_current,
         provisions_cost: travel.provisions_cost,
         gas_cylinder_cost: travel.gas_cylinder_cost,
-        id_boat: travel.id_boat,
-        id_person: travel.id_person,
+        code: travel.code,
       },
     });
     return travel_created;
@@ -42,7 +40,6 @@ export class TravelRepository {
         oil_charger_price: travel.oil_charger_price,
         oil_consume: travel.oil_consume,
         oil_consume_price: travel.oil_consume_price,
-        oil_current: travel.oil_current,
         provisions_cost: travel.provisions_cost,
         gas_cylinder_cost: travel.gas_cylinder_cost,
       },

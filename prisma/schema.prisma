@@ -13,34 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model boat {
-  id        Int      @id @default(autoincrement())
-  name      String
-  title     String
-  capacity  Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  travel    travel[]
-}
-
 model travel {
   id                Int                 @id @default(autoincrement())
-  id_boat           Int
-  oil_charge        Int
-  oil_charger_price Float
-  oil_consume       Int
-  oil_consume_price Float
-  oil_current       Int
-  provisions_cost   Float
+  code              String              @unique
+  oil_charge        Int                 @default(0)
+  oil_charger_price Float               @default(0)
+  oil_consume       Int                 @default(0)
+  oil_consume_price Float               @default(0)
+  provisions_cost   Float               @default(0)
   gas_cylinder_cost Float               @default(0)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  boat              boat                @relation(fields: [id_boat], references: [id])
   other_cost        other_cost_travel[]
   fishing           fishing[]
+  assigned          Boolean             @default(false)
   charger_operation charger_operation?
-  id_person         Int
-  person            person              @relation(fields: [id_person], references: [id])
 }
 
 model other_cost_travel {
@@ -51,8 +38,6 @@ model other_cost_travel {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   travel      travel   @relation(fields: [id_travel], references: [id])
-  id_person   Int
-  person      person   @relation(fields: [id_person], references: [id])
 }
 
 model fishing {
@@ -88,6 +73,7 @@ model charger_operation {
   grocer        Float
   charger       Float
   weight        Float
+  travel_cost   Float
   boxes         Int
   createdAt     DateTime                       @default(now())
   updatedAt     DateTime                       @updatedAt
@@ -96,8 +82,6 @@ model charger_operation {
   other_cost    other_cost_charger_operation[]
   vehicle_route vehicle_route[]
   loan          loan[]
-  id_person     Int
-  person        person                         @relation(fields: [id_person], references: [id])
 }
 
 model other_cost_charger_operation {
@@ -108,8 +92,6 @@ model other_cost_charger_operation {
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
   charger_operation    charger_operation @relation(fields: [id_charger_operation], references: [id])
-  id_person            Int
-  person               person            @relation(fields: [id_person], references: [id])
 }
 
 model route {
@@ -227,16 +209,12 @@ model payment {
 }
 
 model person {
-  id                           Int                            @id @default(autoincrement())
-  name                         String
-  phone                        String
-  createdAt                    DateTime                       @default(now())
-  updatedAt                    DateTime                       @updatedAt
-  loan                         loan[]
-  payment                      payment[]
-  other_cost_travel            other_cost_travel[]
-  other_cost_charger_operation other_cost_charger_operation[]
-  vehicle_route_other_cost     vehicle_route_other_cost[]
-  charger_operation            charger_operation[]
-  travel                       travel[]
+  id                       Int                        @id @default(autoincrement())
+  name                     String
+  phone                    String
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @updatedAt
+  loan                     loan[]
+  payment                  payment[]
+  vehicle_route_other_cost vehicle_route_other_cost[]
 }

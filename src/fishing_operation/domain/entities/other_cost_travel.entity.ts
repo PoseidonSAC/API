@@ -3,7 +3,6 @@ export interface OtherCostTravel {
   description: string;
   price: number;
   id_travel: number;
-  id_person: number;
   createdAt: Date;
   updatedAt: Date;
 }
