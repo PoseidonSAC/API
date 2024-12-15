@@ -12,7 +12,6 @@ export class OtherCostChargerOperationRepository {
           description: data.description,
           price: data.price,
           id_charger_operation: data.id_charger_operation,
-          id_person: data.id_person,
         },
       });
     return otherCostChargerOperation_created;
@@ -46,7 +45,6 @@ export class OtherCostChargerOperationRepository {
         description: data.description,
         price: data.price,
         id_charger_operation: data.id_charger_operation,
-        id_person: data.id_person,
       },
     });
   }

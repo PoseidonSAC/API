@@ -1,6 +1,5 @@
 export interface ChargerOperationCreateDto {
   id_vehicle: number;
-  id_person: number;
   id_travel: number;
   footboard: number;
   helper: number;
@@ -8,4 +7,5 @@ export interface ChargerOperationCreateDto {
   boxes: number;
   weight: number;
   charger: number;
+  travel_cost: number;
 }

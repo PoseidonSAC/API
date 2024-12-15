@@ -7,7 +7,6 @@ export class ChargerOperationRepository {
     const chargerOperation_created = db.charger_operation.create({
       data: {
         id_vehicle: data.id_vehicle,
-        id_person: data.id_person,
         id_travel: data.id_travel,
         footboard: data.footboard,
         helper: data.helper,
@@ -15,6 +14,7 @@ export class ChargerOperationRepository {
         boxes: data.boxes,
         weight: data.weight,
         charger: data.charger,
+        travel_cost: data.travel_cost,
       },
     });
     return chargerOperation_created;
@@ -41,7 +41,6 @@ export class ChargerOperationRepository {
       },
       data: {
         id_vehicle: data.id_vehicle,
-        id_person: data.id_person,
         id_travel: data.id_travel,
         footboard: data.footboard,
         helper: data.helper,
@@ -49,6 +48,7 @@ export class ChargerOperationRepository {
         boxes: data.boxes,
         weight: data.weight,
         charger: data.charger,
+        travel_cost: data.travel_cost,
       },
     });
   }
