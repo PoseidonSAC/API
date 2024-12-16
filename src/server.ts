@@ -4,7 +4,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 //all allowed origins
 const corsOptions = {
-  origin: "*",
+  origin: [
+    "https://app-production-82ec.up.railway.app",
+    "http://localhost:3000",
+  ],
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type,Authorization",
