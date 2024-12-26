@@ -141,14 +141,15 @@ model vehicle_route_other_cost {
 }
 
 model user {
-  id        Int      @id @default(autoincrement())
-  name      String
-  code      String   @unique
-  id_role   Int
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      role     @relation(fields: [id_role], references: [id])
+  id           Int            @id @default(autoincrement())
+  name         String
+  code         String         @unique
+  id_role      Int
+  password     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  role         role           @relation(fields: [id_role], references: [id])
+  notification notification[]
 }
 
 model role {
@@ -217,4 +218,14 @@ model person {
   loan                     loan[]
   payment                  payment[]
   vehicle_route_other_cost vehicle_route_other_cost[]
+}
+
+model notification {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  date      DateTime
+  id_user   Int
+  user      user     @relation(fields: [id_user], references: [id])
 }

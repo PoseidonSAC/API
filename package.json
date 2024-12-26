@@ -10,9 +10,6 @@
     "build": "tsc",
     "start": "node dist/app.js"
   },
-  "imports": {
-    "@/*": "./src/*"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
