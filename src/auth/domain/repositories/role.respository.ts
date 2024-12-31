@@ -14,7 +14,7 @@ export class RoleRepository {
       },
       select: {
         id: true,
-        name: false,
+        name: true,
       },
     });
   }
