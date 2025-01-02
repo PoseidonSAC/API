@@ -4,6 +4,7 @@ import { TravelCreateDto } from "../dtos/travel/create.dto";
 
 export class TravelRepository {
   async create(travel: TravelCreateDto): Promise<Travel> {
+    console.log(travel);
     const travel_created = await db.travel.create({
       data: {
         oil_charge: travel.oil_charge,
@@ -13,6 +14,7 @@ export class TravelRepository {
         provisions_cost: travel.provisions_cost,
         gas_cylinder_cost: travel.gas_cylinder_cost,
         code: travel.code,
+        createdAt: travel.createdAt,
       },
     });
     return travel_created;
@@ -42,6 +44,8 @@ export class TravelRepository {
         oil_consume_price: travel.oil_consume_price,
         provisions_cost: travel.provisions_cost,
         gas_cylinder_cost: travel.gas_cylinder_cost,
+        code: travel.code,
+        createdAt: travel.createdAt,
       },
     });
   }

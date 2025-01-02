@@ -6,4 +6,5 @@ export interface TravelCreateDto {
   provisions_cost: number;
   gas_cylinder_cost: number;
   code: string;
+  createdAt: string;
 }

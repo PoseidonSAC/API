@@ -15,7 +15,7 @@ datasource db {
 
 model travel {
   id                Int                 @id @default(autoincrement())
-  code              String              @unique
+  code              String
   oil_charge        Int                 @default(0)
   oil_charger_price Float               @default(0)
   oil_consume       Int                 @default(0)
@@ -26,7 +26,6 @@ model travel {
   updatedAt         DateTime            @updatedAt
   other_cost        other_cost_travel[]
   fishing           fishing[]
-  assigned          Boolean             @default(false)
   charger_operation charger_operation?
 }
 
@@ -37,7 +36,7 @@ model other_cost_travel {
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  travel      travel   @relation(fields: [id_travel], references: [id])
+  travel      travel   @relation(fields: [id_travel], references: [id], onDelete: Cascade)
 }
 
 model fishing {
@@ -49,7 +48,7 @@ model fishing {
   weight    Float    @default(24)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  travel    travel   @relation(fields: [id_travel], references: [id])
+  travel    travel   @relation(fields: [id_travel], references: [id], onDelete: Cascade)
 }
 
 model vehicle {
@@ -77,7 +76,7 @@ model charger_operation {
   boxes         Int
   createdAt     DateTime                       @default(now())
   updatedAt     DateTime                       @updatedAt
-  travel        travel                         @relation(fields: [id_travel], references: [id])
+  travel        travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
   vehicle       vehicle                        @relation(fields: [id_vehicle], references: [id])
   other_cost    other_cost_charger_operation[]
   vehicle_route vehicle_route[]
@@ -91,7 +90,7 @@ model other_cost_charger_operation {
   price                Float
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
-  charger_operation    charger_operation @relation(fields: [id_charger_operation], references: [id])
+  charger_operation    charger_operation @relation(fields: [id_charger_operation], references: [id], onDelete: Cascade)
 }
 
 model route {
@@ -228,5 +227,5 @@ model notification {
   date      DateTime
   done      Boolean  @default(false)
   id_user   Int
-  user      user     @relation(fields: [id_user], references: [id])
+  user      user     @relation(fields: [id_user], references: [id], onDelete: Cascade)
 }
