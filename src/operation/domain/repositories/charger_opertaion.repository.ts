@@ -3,18 +3,18 @@ import { ChargerOperation } from "../../domain/entities/charger_operation";
 import { ChargerOperationCreateDto } from "../dtos/charger_opetaion/create.dto";
 
 export class ChargerOperationRepository {
-  async create(data: ChargerOperationCreateDto): Promise<ChargerOperation> {
-    const chargerOperation_created = db.charger_operation.create({
+  async create(id_travel: number): Promise<ChargerOperation> {
+    console.log("id_travel", id_travel);
+    const chargerOperation_created = await db.charger_operation.create({
       data: {
-        id_vehicle: data.id_vehicle,
-        id_travel: data.id_travel,
-        footboard: data.footboard,
-        helper: data.helper,
-        grocer: data.grocer,
-        boxes: data.boxes,
-        weight: data.weight,
-        charger: data.charger,
-        travel_cost: data.travel_cost,
+        id_travel: id_travel,
+        boxes: 0,
+        charger: 0,
+        footboard: 0,
+        grocer: 0,
+        helper: 0,
+        travel_cost: 0,
+        weight: 0,
       },
     });
     return chargerOperation_created;
@@ -40,8 +40,6 @@ export class ChargerOperationRepository {
         id: id,
       },
       data: {
-        id_vehicle: data.id_vehicle,
-        id_travel: data.id_travel,
         footboard: data.footboard,
         helper: data.helper,
         grocer: data.grocer,
@@ -59,5 +57,16 @@ export class ChargerOperationRepository {
         id: id,
       },
     });
+  }
+
+  async getChargerOperationByTravelId(
+    id_travel: number
+  ): Promise<ChargerOperation | null> {
+    const chargerOperation = db.charger_operation.findFirst({
+      where: {
+        id_travel: id_travel,
+      },
+    });
+    return chargerOperation;
   }
 }

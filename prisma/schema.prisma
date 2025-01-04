@@ -52,32 +52,31 @@ model fishing {
 }
 
 model vehicle {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  user              String
-  plate             String
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  type              String
-  phone             String
-  charger_operation charger_operation[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  user      String
+  plate     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type      String
+  phone     String
+
+  vehicle_route vehicle_route[]
 }
 
 model charger_operation {
   id            Int                            @id @default(autoincrement())
   id_travel     Int                            @unique
-  id_vehicle    Int
-  footboard     Float
-  helper        Float
-  grocer        Float
-  charger       Float
-  weight        Float
-  travel_cost   Float
-  boxes         Int
+  footboard     Float                          @default(0)
+  helper        Float                          @default(0)
+  grocer        Float                          @default(0)
+  charger       Float                          @default(0)
+  weight        Float                          @default(0)
+  travel_cost   Float                          @default(0)
+  boxes         Int                            @default(0)
   createdAt     DateTime                       @default(now())
   updatedAt     DateTime                       @updatedAt
   travel        travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
-  vehicle       vehicle                        @relation(fields: [id_vehicle], references: [id])
   other_cost    other_cost_charger_operation[]
   vehicle_route vehicle_route[]
   loan          loan[]
@@ -107,10 +106,12 @@ model route {
 model vehicle_route {
   id                  Int                        @id @default(autoincrement())
   id_charge_operation Int
+  id_vehicle          Int
   state               String
   createdAt           DateTime                   @default(now())
   updatedAt           DateTime                   @updatedAt
   charger_operation   charger_operation          @relation(fields: [id_charge_operation], references: [id])
+  vehicle             vehicle                    @relation(fields: [id_vehicle], references: [id])
   routes              vehicle_routes[]
   other_cost          vehicle_route_other_cost[]
 }

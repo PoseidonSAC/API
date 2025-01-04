@@ -16,37 +16,87 @@ export class VehicleController {
   private updateVehicleUseCase = new UpdateVehicleUseCase();
 
   create = async (req: Request, res: Response) => {
-    const vehicle = req.body;
-    const newVehicle = await this.createVehicleUseCase.execute(vehicle);
-    res.status(201).json(newVehicle);
-    return;
+    try {
+      const vehicle = req.body;
+      const newVehicle = await this.createVehicleUseCase.execute(vehicle);
+      res.status(201).json(newVehicle);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
   };
 
   delete = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    await this.deleteVehicleUseCase.execute(id);
-    res.status(204).send();
-    return;
+    try {
+      const id = Number(req.params.id);
+      await this.deleteVehicleUseCase.execute(id);
+      res.status(204).send();
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
   };
 
   getAll = async (req: Request, res: Response) => {
-    const vehicle = await this.getAllVehicleUseCase.execute();
-    res.status(200).json(vehicle);
-    return;
+    try {
+      const vehicle = await this.getAllVehicleUseCase.execute();
+      res.status(200).json(vehicle);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
   };
 
   getById = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const vehicle = await this.getByIdVehicleUseCase.execute(id);
-    res.status(200).json(vehicle);
-    return;
+    try {
+      const id = Number(req.params.id);
+      const vehicle = await this.getByIdVehicleUseCase.execute(id);
+      res.status(200).json(vehicle);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
   };
 
   update = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const vehicle = req.body;
-    await this.updateVehicleUseCase.execute(id, vehicle);
-    res.status(204).send();
-    return;
+    try {
+      const id = Number(req.params.id);
+      const vehicle = req.body;
+      await this.updateVehicleUseCase.execute(id, vehicle);
+      res.status(204).send();
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
   };
 }
