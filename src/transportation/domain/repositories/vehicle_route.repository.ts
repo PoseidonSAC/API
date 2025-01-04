@@ -6,6 +6,7 @@ export class VehicleRouteRepository {
   async create(data: CreateVehicleRouteDto): Promise<VehicleRoute> {
     const vehicleRoute = await db.vehicle_route.create({
       data: {
+        id_vehicle: data.id_vehicle,
         state: data.state,
         id_charge_operation: data.id_charge_operation,
       },
@@ -33,6 +34,7 @@ export class VehicleRouteRepository {
         id,
       },
       data: {
+        id_vehicle: data.id_vehicle,
         state: data.state,
         id_charge_operation: data.id_charge_operation,
       },
