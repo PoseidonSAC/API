@@ -4,4 +4,5 @@ export interface VehicleRoute {
   createdAt: Date;
   updatedAt: Date;
   id_charge_operation: number;
+  id_vehicle: number;
 }
