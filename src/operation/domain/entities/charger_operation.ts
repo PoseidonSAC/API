@@ -1,6 +1,5 @@
 export interface ChargerOperation {
   id: number;
-  id_vehicle: number;
   footboard: number;
   helper: number;
   grocer: number;

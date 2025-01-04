@@ -15,7 +15,7 @@ datasource db {
 
 model travel {
   id                Int                 @id @default(autoincrement())
-  code              String              @unique
+  code              String
   oil_charge        Int                 @default(0)
   oil_charger_price Float               @default(0)
   oil_consume       Int                 @default(0)
@@ -26,7 +26,6 @@ model travel {
   updatedAt         DateTime            @updatedAt
   other_cost        other_cost_travel[]
   fishing           fishing[]
-  assigned          Boolean             @default(false)
   charger_operation charger_operation?
 }
 
@@ -37,7 +36,7 @@ model other_cost_travel {
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  travel      travel   @relation(fields: [id_travel], references: [id])
+  travel      travel   @relation(fields: [id_travel], references: [id], onDelete: Cascade)
 }
 
 model fishing {
@@ -49,36 +48,35 @@ model fishing {
   weight    Float    @default(24)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  travel    travel   @relation(fields: [id_travel], references: [id])
+  travel    travel   @relation(fields: [id_travel], references: [id], onDelete: Cascade)
 }
 
 model vehicle {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  user              String
-  plate             String
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  type              String
-  phone             String
-  charger_operation charger_operation[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  user      String
+  plate     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type      String
+  phone     String
+
+  vehicle_route vehicle_route[]
 }
 
 model charger_operation {
   id            Int                            @id @default(autoincrement())
   id_travel     Int                            @unique
-  id_vehicle    Int
-  footboard     Float
-  helper        Float
-  grocer        Float
-  charger       Float
-  weight        Float
-  travel_cost   Float
-  boxes         Int
+  footboard     Float                          @default(0)
+  helper        Float                          @default(0)
+  grocer        Float                          @default(0)
+  charger       Float                          @default(0)
+  weight        Float                          @default(0)
+  travel_cost   Float                          @default(0)
+  boxes         Int                            @default(0)
   createdAt     DateTime                       @default(now())
   updatedAt     DateTime                       @updatedAt
-  travel        travel                         @relation(fields: [id_travel], references: [id])
-  vehicle       vehicle                        @relation(fields: [id_vehicle], references: [id])
+  travel        travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
   other_cost    other_cost_charger_operation[]
   vehicle_route vehicle_route[]
   loan          loan[]
@@ -91,7 +89,7 @@ model other_cost_charger_operation {
   price                Float
   createdAt            DateTime          @default(now())
   updatedAt            DateTime          @updatedAt
-  charger_operation    charger_operation @relation(fields: [id_charger_operation], references: [id])
+  charger_operation    charger_operation @relation(fields: [id_charger_operation], references: [id], onDelete: Cascade)
 }
 
 model route {
@@ -108,10 +106,12 @@ model route {
 model vehicle_route {
   id                  Int                        @id @default(autoincrement())
   id_charge_operation Int
+  id_vehicle          Int
   state               String
   createdAt           DateTime                   @default(now())
   updatedAt           DateTime                   @updatedAt
   charger_operation   charger_operation          @relation(fields: [id_charge_operation], references: [id])
+  vehicle             vehicle                    @relation(fields: [id_vehicle], references: [id])
   routes              vehicle_routes[]
   other_cost          vehicle_route_other_cost[]
 }
@@ -228,5 +228,5 @@ model notification {
   date      DateTime
   done      Boolean  @default(false)
   id_user   Int
-  user      user     @relation(fields: [id_user], references: [id])
+  user      user     @relation(fields: [id_user], references: [id], onDelete: Cascade)
 }
