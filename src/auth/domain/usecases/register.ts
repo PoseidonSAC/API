@@ -20,7 +20,7 @@ export class Register {
       throw new Error("Passwords do not match");
     }
     const passwordHash = await bycrypt.hash(dto.password, 10);
-    const role = await this.RoleRepository.findByName("User");
+    const role = await this.RoleRepository.findByName("USER");
     if (!role) {
       throw new Error("Role not found");
     }
@@ -35,6 +35,7 @@ export class Register {
     return {
       name: user.name,
       code: user.code,
+      role: role.name,
     };
   }
 }
