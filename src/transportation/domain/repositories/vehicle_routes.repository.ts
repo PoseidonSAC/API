@@ -9,7 +9,7 @@ export class VehicleRoutesRepository {
         id_vehicle_route: data.id_vehicle_route,
         id_route: data.id_route,
         oil_use: data.oil_use,
-        oil_cost: data.oil_cost,
+        createdAt: new Date(data.createdAt),
       },
     });
     return vehicleRoutes;
@@ -41,7 +41,7 @@ export class VehicleRoutesRepository {
         id_vehicle_route: data.id_vehicle_route,
         id_route: data.id_route,
         oil_use: data.oil_use,
-        oil_cost: data.oil_cost,
+        createdAt: new Date(data.createdAt),
       },
     });
     return vehicleRoutes;

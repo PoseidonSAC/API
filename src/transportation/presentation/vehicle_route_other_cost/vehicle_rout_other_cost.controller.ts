@@ -6,6 +6,7 @@ import {
   FindByIdVehicleRouteOtherCostUseCase,
   GetAllVehicleRouteOtherCostUseCase,
   UpdateVehicleRouteOtherCostUseCase,
+  GetByVehicleRouteUseCase,
 } from "../../domain/usecases/vehicle_route_other_cost";
 
 export class VehicleRouteOtherCostController {
@@ -19,6 +20,8 @@ export class VehicleRouteOtherCostController {
     new GetAllVehicleRouteOtherCostUseCase();
   private updateVehicleRouteOtherCostUseCase =
     new UpdateVehicleRouteOtherCostUseCase();
+
+  private getByVehicleRouteUseCase = new GetByVehicleRouteUseCase();
 
   create = async (req: Request, res: Response) => {
     try {
@@ -96,6 +99,24 @@ export class VehicleRouteOtherCostController {
     try {
       const vehicleRouteOtherCost =
         await this.getAllVehicleRouteOtherCostUseCase.execute();
+      res.status(200).json(vehicleRouteOtherCost);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+    }
+  };
+
+  getByVehicleRoute = async (req: Request, res: Response) => {
+    try {
+      const vehicleRouteId = Number(req.params.id);
+      const vehicleRouteOtherCost = await this.getByVehicleRouteUseCase.execute(
+        vehicleRouteId
+      );
       res.status(200).json(vehicleRouteOtherCost);
       return;
     } catch (error) {

@@ -11,7 +11,6 @@ export class VehicleRouteOtherCostRepository {
         id_vehicle_route: data.id_vehicle_route,
         price: data.price,
         description: data.description,
-        id_person: data.id_person,
       },
     });
     return vehicleRouteOtherCost;
@@ -43,7 +42,6 @@ export class VehicleRouteOtherCostRepository {
         id_vehicle_route: data.id_vehicle_route,
         price: data.price,
         description: data.description,
-        id_person: data.id_person,
       },
     });
     return vehicleRouteOtherCost;
@@ -56,5 +54,14 @@ export class VehicleRouteOtherCostRepository {
       },
     });
     return vehicleRouteOtherCost;
+  }
+
+  async findByVehicleRouteId(id: number): Promise<VehicleRouteOtherCost[]> {
+    const vehicleRouteOtherCosts = await db.vehicle_route_other_cost.findMany({
+      where: {
+        id_vehicle_route: id,
+      },
+    });
+    return vehicleRouteOtherCosts;
   }
 }

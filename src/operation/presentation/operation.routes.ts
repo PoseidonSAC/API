@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ChargerOperationRoutes } from "./charger_operation/charger_operation.routes";
 import { OtherCostChargerOperationRoutes } from "./other_cost_charger_operation/other_cost_charger_operation.routes";
-import { VehicleRoutes } from "../../transportation/presentation/vehicle_routes/vehicle_routes.routes";
+import { VehicleRoutes } from "../presentation/vehicle/vehicle.routes";
 
 export class OperationRoutes {
   private router = Router();

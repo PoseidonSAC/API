@@ -5,5 +5,4 @@ export interface VehicleRouteOtherCost {
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  id_person: number;
 }

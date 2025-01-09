@@ -65,21 +65,19 @@ model vehicle {
 }
 
 model charger_operation {
-  id            Int                            @id @default(autoincrement())
-  id_travel     Int                            @unique
-  footboard     Float                          @default(0)
-  helper        Float                          @default(0)
-  grocer        Float                          @default(0)
-  charger       Float                          @default(0)
-  weight        Float                          @default(0)
-  travel_cost   Float                          @default(0)
-  boxes         Int                            @default(0)
-  createdAt     DateTime                       @default(now())
-  updatedAt     DateTime                       @updatedAt
-  travel        travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
-  other_cost    other_cost_charger_operation[]
-  vehicle_route vehicle_route[]
-  loan          loan[]
+  id          Int                            @id @default(autoincrement())
+  id_travel   Int                            @unique
+  footboard   Float                          @default(0)
+  helper      Float                          @default(0)
+  grocer      Float                          @default(0)
+  charger     Float                          @default(0)
+  weight      Float                          @default(0)
+  travel_cost Float                          @default(0)
+  boxes       Int                            @default(0)
+  createdAt   DateTime                       @default(now())
+  updatedAt   DateTime                       @updatedAt
+  travel      travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
+  other_cost  other_cost_charger_operation[]
 }
 
 model other_cost_charger_operation {
@@ -104,28 +102,63 @@ model route {
 }
 
 model vehicle_route {
-  id                  Int                        @id @default(autoincrement())
-  id_charge_operation Int
-  id_vehicle          Int
-  state               String
-  createdAt           DateTime                   @default(now())
-  updatedAt           DateTime                   @updatedAt
-  charger_operation   charger_operation          @relation(fields: [id_charge_operation], references: [id])
-  vehicle             vehicle                    @relation(fields: [id_vehicle], references: [id])
-  routes              vehicle_routes[]
-  other_cost          vehicle_route_other_cost[]
+  id                     Int                        @id @default(autoincrement())
+  id_vehicle             Int
+  state                  String
+  createdAt              DateTime                   @default(now())
+  updatedAt              DateTime                   @updatedAt
+  vehicle                vehicle                    @relation(fields: [id_vehicle], references: [id])
+  routes                 vehicle_routes[]
+  other_cost             vehicle_route_other_cost[]
+  vehicle_route_balance  vehicle_route_balance[]
+  vehicle_route_detail   vehicle_route_detail?
+  vehicle_route_money    vehicle_route_money[]
+  vehicle_routes_oil_use vehicle_routes_oil_use[]
+}
+
+model vehicle_route_detail {
+  id               Int           @id @default(autoincrement())
+  id_vehicle_route Int           @unique
+  dateInit         DateTime      @default(now())
+  dateEnd          DateTime?
+  taxes_out        Float         @default(0)
+  taxes_in         Float         @default(0)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+}
+
+model vehicle_route_money {
+  id               Int           @id @default(autoincrement())
+  id_vehicle_route Int
+  money            Float
+  givenby          String
+  type             String
+  description      String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+}
+
+model vehicle_route_balance {
+  id               Int           @id @default(autoincrement())
+  id_vehicle_route Int
+  balance          Float
+  place            String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
 }
 
 model vehicle_routes {
   id               Int           @id @default(autoincrement())
   id_vehicle_route Int
   id_route         Int
-  oil_use          Int
-  oil_cost         Float
+  oil_use          Int           @default(0)
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
-  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id])
-  route            route         @relation(fields: [id_route], references: [id])
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+  route            route         @relation(fields: [id_route], references: [id], onDelete: Cascade)
 }
 
 model vehicle_route_other_cost {
@@ -135,9 +168,52 @@ model vehicle_route_other_cost {
   price            Float
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
-  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id])
-  id_person        Int
-  person           person        @relation(fields: [id_person], references: [id])
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+}
+
+model vehicle_routes_oil_use {
+  id               Int           @id @default(autoincrement())
+  id_vehicle_route Int
+  oil_use          Int
+  description      String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+}
+
+model control_boxes {
+  id          Int      @id @default(autoincrement())
+  code        String
+  date_arrive DateTime
+  place       String
+  boxes       boxes[]
+  concluded   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model boxes {
+  id               Int            @id @default(autoincrement())
+  color            String
+  name             String
+  quantity         Int
+  reported_by      String
+  id_control_boxes Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  control_boxes    control_boxes  @relation(fields: [id_control_boxes], references: [id], onDelete: Cascade)
+  hasLiquid        Boolean
+  boxes_return     boxes_return[]
+}
+
+model boxes_return {
+  id        Int      @id @default(autoincrement())
+  id_boxes  Int
+  date      DateTime
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  boxes     boxes    @relation(fields: [id_boxes], references: [id], onDelete: Cascade)
 }
 
 model user {
@@ -172,17 +248,16 @@ model client {
 }
 
 model loan {
-  id                  Int               @id @default(autoincrement())
+  id                  Int           @id @default(autoincrement())
   id_client           Int
   id_charge_operation Int
   mount               Float
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
-  client              client            @relation(fields: [id_client], references: [id])
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  client              client        @relation(fields: [id_client], references: [id])
   loan_detail         loan_detail[]
-  charger_operation   charger_operation @relation(fields: [id_charge_operation], references: [id])
   id_person           Int
-  person              person            @relation(fields: [id_person], references: [id])
+  person              person        @relation(fields: [id_person], references: [id])
 }
 
 model loan_detail {
@@ -210,14 +285,13 @@ model payment {
 }
 
 model person {
-  id                       Int                        @id @default(autoincrement())
-  name                     String
-  phone                    String
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime                   @updatedAt
-  loan                     loan[]
-  payment                  payment[]
-  vehicle_route_other_cost vehicle_route_other_cost[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  phone     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  loan      loan[]
+  payment   payment[]
 }
 
 model notification {

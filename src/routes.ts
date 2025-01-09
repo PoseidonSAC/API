@@ -5,7 +5,7 @@ import { SalesRoutes } from "./sales/presentation/sales.routes";
 import { TransportationRoutes } from "./transportation/presentation/transportation.routes";
 import { OperationRoutes } from "./operation/presentation/operation.routes";
 import { FishingOperationRoutes } from "./fishing_operation/presentation/fishing.routes";
-
+import { BoxesModule } from "./boxes/routes";
 export class Routes {
   private routerPublic: Router;
   private routerPrivate: Router;
@@ -14,7 +14,7 @@ export class Routes {
   private SalesRoutes = new SalesRoutes();
   private TransportationRoutes = new TransportationRoutes();
   private OperationRoutes = new OperationRoutes();
-
+  private BoxesRoutes = new BoxesModule();
   constructor() {
     this.routerPrivate = Router();
     this.routerPublic = Router();
@@ -32,7 +32,7 @@ export class Routes {
       this.TransportationRoutes.getRoutes()
     );
     this.routerPrivate.use("/operation", this.OperationRoutes.getRoutes());
-
+    this.routerPrivate.use("/boxes", this.BoxesRoutes.getRoutes());
     return this.routerPrivate;
   }
 }

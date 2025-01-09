@@ -8,7 +8,6 @@ export class VehicleRouteRepository {
       data: {
         id_vehicle: data.id_vehicle,
         state: data.state,
-        id_charge_operation: data.id_charge_operation,
       },
     });
     return vehicleRoute;
@@ -36,7 +35,6 @@ export class VehicleRouteRepository {
       data: {
         id_vehicle: data.id_vehicle,
         state: data.state,
-        id_charge_operation: data.id_charge_operation,
       },
     });
     return vehicleRoute;

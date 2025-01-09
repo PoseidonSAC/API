@@ -3,4 +3,5 @@ export interface CreateVehicleRoutesDto {
   id_route: number;
   oil_use: number;
   oil_cost: number;
+  createdAt: Date;
 }
