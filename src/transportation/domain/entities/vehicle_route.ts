@@ -3,6 +3,5 @@ export interface VehicleRoute {
   state: string;
   createdAt: Date;
   updatedAt: Date;
-  id_charge_operation: number;
   id_vehicle: number;
 }

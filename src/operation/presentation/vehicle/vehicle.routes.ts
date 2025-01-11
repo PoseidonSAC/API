@@ -12,7 +12,7 @@ export class VehicleRoutes {
     this.router.get("/:id", this.controller.getById);
   }
 
-  setRoutes() {
+  getRoutes() {
     return this.router;
   }
 }
