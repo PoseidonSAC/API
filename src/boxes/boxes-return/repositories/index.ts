@@ -58,4 +58,17 @@ export class BoxesReturnRepository {
     });
     return boxesReturn;
   }
+
+  async findByControl(id_control: number): Promise<BoxesReturnResDto[]> {
+    const boxesReturn = await db.boxes_return.findMany({
+      where: {
+        boxes: {
+          control_boxes: {
+            id: id_control,
+          },
+        },
+      },
+    });
+    return boxesReturn;
+  }
 }

@@ -86,8 +86,8 @@ export class BoxesReturnController {
 
   getByBoxes = async (req: Request, res: Response) => {
     try {
-      const id_control_boxes = Number(req.params.id_control_boxes);
-      const boxesReturn = await this.repository.findByBoxes(id_control_boxes);
+      const id = Number(req.params.id);
+      const boxesReturn = await this.repository.findByBoxes(id);
       res.status(200).json(boxesReturn);
       return;
     } catch (error) {
@@ -97,6 +97,21 @@ export class BoxesReturnController {
       }
       res.status(400).json({ message: "Unexpected error." });
       return;
+    }
+  };
+
+  getByControl = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const boxesReturn = await this.repository.findByControl(id);
+      res.status(200).json(boxesReturn);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
     }
   };
 }

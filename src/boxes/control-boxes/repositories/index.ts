@@ -6,8 +6,9 @@ export class ControlBoxesRepository {
     const controlBoxes = await db.control_boxes.create({
       data: {
         code: data.code,
-        date_arrive: data.date_arrive,
+        date_arrive: new Date(data.date_arrive),
         place: data.place,
+        concluded: false,
       },
     });
     return controlBoxes;
@@ -34,8 +35,9 @@ export class ControlBoxesRepository {
       },
       data: {
         code: data.code,
-        date_arrive: data.date_arrive,
+        date_arrive: new Date(data.date_arrive),
         place: data.place,
+        concluded: data.concluded,
       },
     });
     return controlBoxes;

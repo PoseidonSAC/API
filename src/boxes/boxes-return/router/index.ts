@@ -11,6 +11,7 @@ export class BoxesReturnRoutes {
     this.router.delete("/:id", this.controller.delete);
     this.router.get("/:id", this.controller.getById);
     this.router.get("/boxes/:id", this.controller.getByBoxes);
+    this.router.get("/control-boxes/:id", this.controller.getByControl);
   }
 
   getRoutes() {
