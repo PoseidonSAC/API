@@ -8,7 +8,7 @@ export class VehicleRouteRepository {
       data: {
         id_vehicle: data.id_vehicle,
         state: data.state,
-        createdAt: data.createdAt,
+        createdAt: new Date(data.createdAt),
       },
     });
     return vehicleRoute;
@@ -36,7 +36,7 @@ export class VehicleRouteRepository {
       data: {
         id_vehicle: data.id_vehicle,
         state: data.state,
-        createdAt: data.createdAt,
+        createdAt: new Date(data.createdAt),
       },
     });
     return vehicleRoute;
