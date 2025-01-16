@@ -5,6 +5,7 @@ export interface VehicleRouteDetail {
   dateEnd: string;
   taxes_out: number;
   taxes_in: number;
+  destination: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
