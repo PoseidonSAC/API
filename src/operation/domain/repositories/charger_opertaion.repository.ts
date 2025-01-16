@@ -47,6 +47,7 @@ export class ChargerOperationRepository {
         weight: data.weight,
         charger: data.charger,
         travel_cost: data.travel_cost,
+        date_canceled: data.date_canceled,
       },
     });
   }

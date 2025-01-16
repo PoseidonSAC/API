@@ -10,6 +10,7 @@ export class OtherCostTravelRepository {
         description: other_cost_travel.description,
         price: other_cost_travel.price,
         id_travel: other_cost_travel.id_travel,
+        is_added: other_cost_travel.is_added,
       },
     });
     return other_cost_travel_created;
@@ -40,6 +41,7 @@ export class OtherCostTravelRepository {
       data: {
         description: other_cost_travel.description,
         price: other_cost_travel.price,
+        is_added: other_cost_travel.is_added,
       },
     });
   }

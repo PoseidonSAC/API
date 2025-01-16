@@ -6,7 +6,7 @@ export class ControlBoxesRepository {
     const controlBoxes = await db.control_boxes.create({
       data: {
         code: data.code,
-        date_arrive: new Date(data.date_arrive),
+        date_arrive: data.date_arrive,
         place: data.place,
         concluded: false,
       },
@@ -15,7 +15,11 @@ export class ControlBoxesRepository {
   }
 
   async findAll(): Promise<ControlBoxesResDto[]> {
-    const controlBoxes = await db.control_boxes.findMany();
+    const controlBoxes = await db.control_boxes.findMany({
+      orderBy: {
+        date_arrive: "desc",
+      },
+    });
     return controlBoxes;
   }
 
@@ -35,7 +39,7 @@ export class ControlBoxesRepository {
       },
       data: {
         code: data.code,
-        date_arrive: new Date(data.date_arrive),
+        date_arrive: data.date_arrive,
         place: data.place,
         concluded: data.concluded,
       },

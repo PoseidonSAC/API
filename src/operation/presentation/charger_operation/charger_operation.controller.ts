@@ -29,7 +29,6 @@ export class ChargerOperationController {
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
-        console.log(error);
         return;
       }
       res.status(400).json({ message: "Unexpected error." });
@@ -48,7 +47,6 @@ export class ChargerOperationController {
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
-        console.log(error);
         return;
       }
       res.status(400).json({ message: "Unexpected error." });
@@ -65,7 +63,6 @@ export class ChargerOperationController {
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
-        console.log(error);
         return;
       }
       res.status(400).json({ message: "Unexpected error." });
@@ -84,7 +81,6 @@ export class ChargerOperationController {
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
-        console.log(error);
         return;
       }
       res.status(400).json({ message: "Unexpected error." });
@@ -101,7 +97,6 @@ export class ChargerOperationController {
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
-        console.log(error);
         return;
       }
     }
@@ -117,7 +112,6 @@ export class ChargerOperationController {
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
-        console.log(error);
         return;
       }
       res.status(400).json({ message: "Unexpected error." });

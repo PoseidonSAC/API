@@ -14,19 +14,27 @@ datasource db {
 }
 
 model travel {
-  id                Int                 @id @default(autoincrement())
-  code              String
-  oil_charge        Int                 @default(0)
-  oil_charger_price Float               @default(0)
-  oil_consume       Int                 @default(0)
-  oil_consume_price Float               @default(0)
-  provisions_cost   Float               @default(0)
-  gas_cylinder_cost Float               @default(0)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  other_cost        other_cost_travel[]
-  fishing           fishing[]
-  charger_operation charger_operation?
+  id                    Int       @id @default(autoincrement())
+  code                  String
+  oil_charge            Int       @default(0)
+  oil_charger_price     Float     @default(0)
+  oil_consume           Int       @default(0)
+  oil_consume_price     Float     @default(0)
+  provisions_cost       Float     @default(0)
+  gas_cylinder_cost     Float     @default(0)
+  fishing_date_canceled DateTime?
+  oil_date_canceled     DateTime?
+  oil_remaining         Int       @default(0)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  is_concluded          Boolean   @default(false)
+
+  oil_vehicle               Int                 @default(0)
+  oil_vehicle_price         Float               @default(0)
+  oil_vehicle_date_canceled DateTime?
+  other_cost                other_cost_travel[]
+  fishing                   fishing[]
+  charger_operation         charger_operation?
 }
 
 model other_cost_travel {
@@ -34,6 +42,7 @@ model other_cost_travel {
   id_travel   Int
   description String
   price       Float
+  is_added    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   travel      travel   @relation(fields: [id_travel], references: [id], onDelete: Cascade)
@@ -65,19 +74,20 @@ model vehicle {
 }
 
 model charger_operation {
-  id          Int                            @id @default(autoincrement())
-  id_travel   Int                            @unique
-  footboard   Float                          @default(0)
-  helper      Float                          @default(0)
-  grocer      Float                          @default(0)
-  charger     Float                          @default(0)
-  weight      Float                          @default(0)
-  travel_cost Float                          @default(0)
-  boxes       Int                            @default(0)
-  createdAt   DateTime                       @default(now())
-  updatedAt   DateTime                       @updatedAt
-  travel      travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
-  other_cost  other_cost_charger_operation[]
+  id            Int                            @id @default(autoincrement())
+  id_travel     Int                            @unique
+  footboard     Float                          @default(0)
+  helper        Float                          @default(0)
+  grocer        Float                          @default(0)
+  charger       Float                          @default(0)
+  weight        Float                          @default(0)
+  travel_cost   Float                          @default(0)
+  boxes         Int                            @default(0)
+  date_canceled DateTime?
+  createdAt     DateTime                       @default(now())
+  updatedAt     DateTime                       @updatedAt
+  travel        travel                         @relation(fields: [id_travel], references: [id], onDelete: Cascade)
+  other_cost    other_cost_charger_operation[]
 }
 
 model other_cost_charger_operation {

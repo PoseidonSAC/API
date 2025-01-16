@@ -46,6 +46,13 @@ export class TravelRepository {
         gas_cylinder_cost: travel.gas_cylinder_cost,
         code: travel.code,
         createdAt: travel.createdAt,
+        is_concluded: travel.is_concluded,
+        oil_remaining: travel.oil_remaining,
+        oil_date_canceled: travel.oil_date_canceled,
+        fishing_date_canceled: travel.fishing_date_canceled,
+        oil_vehicle: travel.oil_vehicle,
+        oil_vehicle_price: travel.oil_vehicle_price,
+        oil_vehicle_date_canceled: travel.oil_vehicle_date_canceled,
       },
     });
   }

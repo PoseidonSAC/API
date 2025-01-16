@@ -13,11 +13,15 @@ export class UserController {
     this.validateTokenUseCase = new ValidateTokenUseCase();
   }
   login = async (req: Request, res: Response) => {
+    const { token, user, refreshToken } = await this.sessionUseCase.execute(
+      req.body
+    );
     try {
-      const { token, user } = await this.sessionUseCase.execute(req.body);
-
       res
         .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .cookie("refresh_token", refreshToken, {
           httpOnly: true,
         })
         .json(user);
@@ -55,6 +59,29 @@ export class UserController {
         res.status(200).json(data.user);
         return;
       }
+
+      const refreshToken = req.cookies.refresh_token;
+      if (!refreshToken) {
+        res.status(400).json({ error: "Refresh token not provided" });
+        return;
+      }
+
+      const dataRefresh = await this.validateTokenUseCase.execute(refreshToken);
+      if (dataRefresh.isValid) {
+        if (!dataRefresh.user) {
+          res.status(400).json({ error: "Invalid token" });
+          return;
+        }
+        const { user, token: newtoken } =
+          await this.sessionUseCase.refreshToken(dataRefresh.user);
+        res
+          .cookie("access_token", newtoken, {
+            httpOnly: true,
+          })
+          .json(user);
+        return;
+      }
+
       res.status(400).json({ error: "Invalid token" });
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
@@ -63,6 +90,7 @@ export class UserController {
 
   logout = async (req: Request, res: Response) => {
     res.clearCookie("access_token", { path: "/" });
+    res.clearCookie("refresh_token", { path: "/" });
     res.status(200).json({ message: "Logged out" });
   };
 }
