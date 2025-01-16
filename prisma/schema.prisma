@@ -134,6 +134,7 @@ model vehicle_route_detail {
   taxes_out        Float         @default(0)
   taxes_in         Float         @default(0)
   createdAt        DateTime      @default(now())
+  destination      String?
   updatedAt        DateTime      @updatedAt
   vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
 }

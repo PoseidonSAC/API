@@ -1,9 +1,11 @@
 import { VehicleRouteDetailRepository } from "../../domain/repositories/vehicle_route_detail.repository";
+import { VehicleRouteRepository } from "../../domain/repositories/vehicle_route.repository";
 
 import { Request, Response } from "express";
 
 export class VehicleRouteDetailController {
   private vehicleRouteDetailRepository = new VehicleRouteDetailRepository();
+  private vehicleRoute = new VehicleRouteRepository();
 
   create = async (req: Request, res: Response) => {
     try {
@@ -28,6 +30,25 @@ export class VehicleRouteDetailController {
       const id = Number(req.params.id);
       const vehicleRouteDetail = req.body;
       await this.vehicleRouteDetailRepository.update(id, vehicleRouteDetail);
+      const updatedVehicleRouteUpdated =
+        await this.vehicleRouteDetailRepository.findById(id);
+      if (!updatedVehicleRouteUpdated) {
+        res.status(400).json({ message: "Vehicle route not found." });
+        return;
+      }
+      const updatedVehicleRoute = await this.vehicleRoute.findById(
+        updatedVehicleRouteUpdated.id_vehicle_route
+      );
+      if (!updatedVehicleRoute) {
+        res.status(400).json({ message: "Vehicle route not found." });
+        return;
+      }
+      await this.vehicleRoute.update(updatedVehicleRoute.id, {
+        ...updatedVehicleRoute,
+        createdAt: updatedVehicleRouteUpdated.dateInit,
+        id_charge_operation: 0,
+      });
+
       res.status(204).send();
       return;
     } catch (error) {
@@ -100,14 +121,22 @@ export class VehicleRouteDetailController {
         await this.vehicleRouteDetailRepository.findByVehicleRouteId(
           vehicleRouteId
         );
+
+      const vehicleRoute = await this.vehicleRoute.findById(vehicleRouteId);
+      if (!vehicleRoute) {
+        res.status(400).json({ message: "Vehicle route not found." });
+        return;
+      }
+
       if (!vehicleRouteDetail) {
         const vehicleRouteDetailCreated =
           await this.vehicleRouteDetailRepository.create({
             id_vehicle_route: vehicleRouteId,
             taxes_in: 0,
             taxes_out: 0,
-            dateInit: new Date(),
+            dateInit: vehicleRoute.createdAt,
             dateEnd: null,
+            destination: null,
           });
 
         res.status(200).json(vehicleRouteDetailCreated);

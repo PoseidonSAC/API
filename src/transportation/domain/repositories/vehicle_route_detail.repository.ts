@@ -14,6 +14,7 @@ export class VehicleRouteDetailRepository {
         taxes_out: data.taxes_out,
         dateEnd: data.dateEnd,
         dateInit: data.dateInit,
+        destination: data.destination,
       },
     });
     return vehicleRouteDetail;
@@ -47,6 +48,7 @@ export class VehicleRouteDetailRepository {
         taxes_out: data.taxes_out,
         dateEnd: data.dateEnd ? new Date(data.dateEnd) : null,
         dateInit: new Date(data.dateInit),
+        destination: data.destination,
       },
     });
     return vehicleRouteDetail;
