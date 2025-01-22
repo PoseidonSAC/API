@@ -9,7 +9,8 @@
     "migrate": "prisma migrate deploy",
     "build": "tsc",
     "start": "node dist/app.js",
-    "migrate-and-build": "npm run migrate && npm run build"
+    "resolve-migration": "prisma migrate resolve --applied 20250120170705_update_boxes",
+    "migrate-and-build": "npm run resolve-migration && npm run migrate && npm run build"
   },
   "keywords": [],
   "author": "",
