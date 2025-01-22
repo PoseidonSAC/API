@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "resolve-migration-update-boxes": "prisma migrate resolve --rolled-back 20250120170705_update_boxes",
-    "migrate-and-build": "npm run resolve-migration && npm run migrate && npm run build"
+    "migrate-and-build": "npm run resolve-migration-update-boxes && npm run migrate && npm run build"
   },
   "keywords": [],
   "author": "",
