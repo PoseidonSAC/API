@@ -6,7 +6,7 @@ export class BoxesReturnRepository {
     const boxesReturn = await db.boxes_return.create({
       data: {
         id_boxes: data.id_boxes,
-        date: new Date(data.date),
+        date: data.date,
         quantity: data.quantity,
       },
     });
@@ -34,7 +34,7 @@ export class BoxesReturnRepository {
       },
       data: {
         id_boxes: data.id_boxes,
-        date: new Date(data.date),
+        date: data.date,
         quantity: data.quantity,
       },
     });
@@ -63,8 +63,8 @@ export class BoxesReturnRepository {
     const boxesReturn = await db.boxes_return.findMany({
       where: {
         boxes: {
-          control_boxes: {
-            id: id_control,
+          control_place: {
+            id_control_boxes: id_control,
           },
         },
       },

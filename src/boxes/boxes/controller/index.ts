@@ -83,10 +83,10 @@ export class BoxesController {
     }
   };
 
-  getByControlBoxes = async (req: Request, res: Response) => {
+  getByControlPlace = async (req: Request, res: Response) => {
     try {
-      const id_control_boxes = Number(req.params.id);
-      const boxes = await this.repository.findByControlBoxes(id_control_boxes);
+      const id_control_place = Number(req.params.id);
+      const boxes = await this.repository.findByControlPlace(id_control_place);
       res.status(200).json(boxes);
       return;
     } catch (error) {

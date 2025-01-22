@@ -10,7 +10,7 @@ export class BoxesRoutes {
     this.router.post("/", this.controller.create);
     this.router.put("/:id", this.controller.update);
     this.router.delete("/:id", this.controller.delete);
-    this.router.get("/control-boxes/:id", this.controller.getByControlBoxes);
+    this.router.get("/control-place/:id", this.controller.getByControlPlace);
   }
 
   getRoutes() {

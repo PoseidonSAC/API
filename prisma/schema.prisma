@@ -193,28 +193,38 @@ model vehicle_routes_oil_use {
 }
 
 model control_boxes {
-  id          Int      @id @default(autoincrement())
-  code        String
-  date_arrive DateTime
-  place       String
-  boxes       boxes[]
-  concluded   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            Int             @id @default(autoincrement())
+  code          String
+  date_arrive   DateTime
+  concluded     Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  control_place control_place[]
+}
+
+model control_place {
+  id               Int           @id @default(autoincrement())
+  id_control_boxes Int
+  name             String
+  date_arrive      DateTime
+  concluded        Boolean       @default(false)
+  hasLiquid        Boolean       @default(false)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  control_boxes    control_boxes @relation(fields: [id_control_boxes], references: [id], onDelete: Cascade)
+  boxes            boxes[]
 }
 
 model boxes {
   id               Int            @id @default(autoincrement())
+  id_control_place Int
   color            String
   name             String
   quantity         Int
-  reported_by      String
-  id_control_boxes Int
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
-  control_boxes    control_boxes  @relation(fields: [id_control_boxes], references: [id], onDelete: Cascade)
-  hasLiquid        Boolean
   boxes_return     boxes_return[]
+  control_place    control_place  @relation(fields: [id_control_place], references: [id], onDelete: Cascade)
 }
 
 model boxes_return {

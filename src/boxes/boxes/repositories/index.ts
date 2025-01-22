@@ -9,10 +9,7 @@ export class BoxesRepository {
         color: data.color,
         name: data.name,
         quantity: data.quantity,
-        id_control_boxes: data.id_control_boxes,
-        reported_by: data.reported_by,
-        hasLiquid: data.hasLiquid,
-        createdAt: new Date(data.createdAt),
+        id_control_place: data.id_control_place,
       },
     });
     return boxes;
@@ -41,10 +38,6 @@ export class BoxesRepository {
         color: data.color,
         name: data.name,
         quantity: data.quantity,
-        id_control_boxes: data.id_control_boxes,
-        reported_by: data.reported_by,
-        hasLiquid: data.hasLiquid,
-        createdAt: new Date(data.createdAt),
       },
     });
     return boxes;
@@ -59,10 +52,10 @@ export class BoxesRepository {
     return boxes;
   }
 
-  async findByControlBoxes(id_control_boxes: number): Promise<BoxesResDto[]> {
+  async findByControlPlace(id_control_place: number): Promise<BoxesResDto[]> {
     const boxes = await db.boxes.findMany({
       where: {
-        id_control_boxes,
+        id_control_place,
       },
     });
     return boxes;
