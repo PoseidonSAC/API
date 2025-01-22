@@ -6,7 +6,7 @@
 
 */
 -- AlterTable
-ALTER TABLE "boxes" ADD COLUMN     "place" TEXT ;
+ALTER TABLE "boxes" ADD COLUMN     "place" TEXT  ;
 
 -- AlterTable
 ALTER TABLE "control_boxes" DROP COLUMN "place";
