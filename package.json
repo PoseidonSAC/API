@@ -9,8 +9,7 @@
     "migrate": "prisma migrate deploy",
     "build": "tsc",
     "start": "node dist/app.js",
-    "resolve-migration": "prisma migrate resolve --applied 20250120113832_drop_place_and_move_to_boxes_child",
-    "migrate-and-build": "npm run resolve-migration && npm run migrate && npm run build"
+    "migrate-and-build": "npm run migrate && npm run build"
   },
   "keywords": [],
   "author": "",
