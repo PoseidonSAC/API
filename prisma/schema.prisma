@@ -192,6 +192,18 @@ model vehicle_routes_oil_use {
   vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
 }
 
+model user {
+  id           Int            @id @default(autoincrement())
+  name         String
+  code         String         @unique
+  id_role      Int
+  password     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  role         role           @relation(fields: [id_role], references: [id])
+  notification notification[]
+}
+
 model control_boxes {
   id            Int             @id @default(autoincrement())
   code          String
@@ -235,18 +247,6 @@ model boxes_return {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   boxes     boxes    @relation(fields: [id_boxes], references: [id], onDelete: Cascade)
-}
-
-model user {
-  id           Int            @id @default(autoincrement())
-  name         String
-  code         String         @unique
-  id_role      Int
-  password     String
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  role         role           @relation(fields: [id_role], references: [id])
-  notification notification[]
 }
 
 model role {
