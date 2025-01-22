@@ -9,7 +9,7 @@
     "migrate": "prisma migrate deploy",
     "build": "tsc",
     "start": "node dist/app.js",
-    "resolve-migration": "prisma migrate resolve --rolled-back 20250116181315_add_destino",
+    "resolve-migration-update-boxes": "prisma migrate resolve --rolled-back 20250120170705_update_boxes",
     "migrate-and-build": "npm run resolve-migration && npm run migrate && npm run build"
   },
   "keywords": [],
