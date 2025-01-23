@@ -1,4 +1,7 @@
-import { VehicleRoute } from "./../entities/vehicle_route";
+import {
+  VehicleRoute,
+  VehicleRouteWithVehicle,
+} from "./../entities/vehicle_route";
 import { CreateVehicleRouteDto } from "./../dtos/vehicle_route/create.dto";
 import { db } from "../../../core/config/db";
 
@@ -14,8 +17,16 @@ export class VehicleRouteRepository {
     return vehicleRoute;
   }
 
-  async findAll(): Promise<VehicleRoute[]> {
-    const vehicleRoutes = await db.vehicle_route.findMany();
+  async findAll(): Promise<VehicleRouteWithVehicle[]> {
+    const vehicleRoutes = await db.vehicle_route.findMany({
+      include: {
+        vehicle: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
     return vehicleRoutes;
   }
 

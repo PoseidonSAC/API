@@ -5,3 +5,11 @@ export interface VehicleRoute {
   updatedAt: Date;
   id_vehicle: number;
 }
+
+export interface VehicleName {
+  name: string;
+}
+
+export interface VehicleRouteWithVehicle extends VehicleRoute {
+  vehicle: VehicleName;
+}
