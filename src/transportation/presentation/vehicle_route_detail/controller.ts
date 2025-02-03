@@ -154,4 +154,22 @@ export class VehicleRouteDetailController {
       return;
     }
   };
+
+  getVehicleUseOilByDestination = async (req: Request, res: Response) => {
+    try {
+      const destination = req.params.destination;
+      const vehicleRouteDetail =
+        await this.vehicleRouteDetailRepository.findByDestiny(destination);
+      res.status(200).json(vehicleRouteDetail);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        console.log(error);
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
+  };
 }
