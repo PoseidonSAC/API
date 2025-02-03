@@ -79,7 +79,7 @@ export class VehicleRouteDetailRepository {
       include: {
         vehicle_route: {
           include: {
-            vehicle_routes_oil_use: true,
+            routes: true,
             vehicle: true,
           },
         },
@@ -95,13 +95,10 @@ export class VehicleRouteDetailRepository {
           destination: vehicleRouteDetail.destination,
           vehicle: vehicleRouteDetail.vehicle_route.vehicle.name,
           vehicle_route_oil_usage:
-            vehicleRouteDetail.vehicle_route.vehicle_routes_oil_use.reduce(
-              (acc, curr) => {
-                acc += curr.oil_use;
-                return acc;
-              },
-              0
-            ),
+            vehicleRouteDetail.vehicle_route.routes.reduce((acc, curr) => {
+              acc += curr.oil_use;
+              return acc;
+            }, 0),
         };
         return vehicleRouteDetailRes;
       }
