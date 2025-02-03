@@ -12,6 +12,10 @@ export class VehicleRouteDetailRoutes {
     this.router.delete("/:id", this.controller.delete);
     this.router.get("/:id", this.controller.getById);
     this.router.get("/vehicle-route/:id", this.controller.getByVehicleRouteId);
+    this.router.get(
+      "/vehicle-route-use/:destination",
+      this.controller.getVehicleUseOilByDestination
+    );
   }
 
   getRoutes() {

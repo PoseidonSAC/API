@@ -68,4 +68,44 @@ export class VehicleRouteDetailRepository {
     });
     return vehicleRouteDetails;
   }
+
+  async findByDestiny(destiny: string) {
+    const vehicleRouteDetails = await db.vehicle_route_detail.findMany({
+      where: {
+        destination: {
+          contains: destiny,
+        },
+      },
+      include: {
+        vehicle_route: {
+          include: {
+            vehicle_routes_oil_use: true,
+            vehicle: true,
+          },
+        },
+      },
+    });
+
+    const vehicleRouteDetailsRes = vehicleRouteDetails.map(
+      (vehicleRouteDetail) => {
+        const vehicleRouteDetailRes = {
+          id: vehicleRouteDetail.id,
+          id_vehicle_route: vehicleRouteDetail.id_vehicle_route,
+          dateInit: vehicleRouteDetail.dateInit,
+          destination: vehicleRouteDetail.destination,
+          vehicle: vehicleRouteDetail.vehicle_route.vehicle.name,
+          vehicle_route_oil_usage:
+            vehicleRouteDetail.vehicle_route.vehicle_routes_oil_use.reduce(
+              (acc, curr) => {
+                acc += curr.oil_use;
+                return acc;
+              },
+              0
+            ),
+        };
+        return vehicleRouteDetailRes;
+      }
+    );
+    return vehicleRouteDetailsRes;
+  }
 }
