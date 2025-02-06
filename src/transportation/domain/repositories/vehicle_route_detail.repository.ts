@@ -1,20 +1,13 @@
 import { db } from "./../../../core/config/db";
 
-import {
-  VehicleRouteDetailDto,
-  VehicleRouteDetailResDto,
-} from "../dtos/vehicle_route_detail";
+import { VehicleRouteDetailDto } from "../dtos/vehicle_route_detail";
 
 export class VehicleRouteDetailRepository {
   async create(data: VehicleRouteDetailDto) {
     const vehicleRouteDetail = await db.vehicle_route_detail.create({
       data: {
         id_vehicle_route: data.id_vehicle_route,
-        taxes_in: data.taxes_in,
-        taxes_out: data.taxes_out,
-        dateEnd: data.dateEnd,
         dateInit: data.dateInit,
-        destination: data.destination,
       },
     });
     return vehicleRouteDetail;
@@ -45,7 +38,9 @@ export class VehicleRouteDetailRepository {
         taxes_out: data.taxes_out,
         dateEnd: data.dateEnd ? data.dateEnd : null,
         dateInit: data.dateInit,
-        destination: data.destination,
+        point_charge: data.point_charge ? data.point_charge : null,
+        who_destination: data.who_destination ? data.who_destination : null,
+        destiny: data.destiny ? data.destiny : null,
       },
     });
     return vehicleRouteDetail;
@@ -69,11 +64,11 @@ export class VehicleRouteDetailRepository {
     return vehicleRouteDetails;
   }
 
-  async findByDestiny(destiny: string) {
+  async findByDestiny(point_charge_s: string) {
     const vehicleRouteDetails = await db.vehicle_route_detail.findMany({
       where: {
-        destination: {
-          contains: destiny,
+        point_charge: {
+          contains: point_charge_s,
         },
       },
       include: {
@@ -92,7 +87,7 @@ export class VehicleRouteDetailRepository {
           id: vehicleRouteDetail.id,
           id_vehicle_route: vehicleRouteDetail.id_vehicle_route,
           dateInit: vehicleRouteDetail.dateInit,
-          destination: vehicleRouteDetail.destination,
+          destination: vehicleRouteDetail.point_charge,
           vehicle: vehicleRouteDetail.vehicle_route.vehicle.name,
           vehicle_route_oil_usage:
             vehicleRouteDetail.vehicle_route.routes.reduce((acc, curr) => {

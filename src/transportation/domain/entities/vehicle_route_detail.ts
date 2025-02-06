@@ -1,11 +1,13 @@
 export interface VehicleRouteDetail {
   id: number;
   id_vehicle_route: number;
-  dateInit: string;
-  dateEnd: string;
+  dateInit: Date;
+  dateEnd: Date | null;
   taxes_out: number;
   taxes_in: number;
-  destination: string | null;
+  point_charge: string | null;
+  who_destination: string | null;
+  destiny: string | null;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -41,6 +41,7 @@ export class VehicleRepository {
         plate: data.plate,
         type: data.type,
         phone: data.phone,
+        is_active: data.is_active,
       },
     });
   }
@@ -51,5 +52,15 @@ export class VehicleRepository {
         id: id,
       },
     });
+  }
+
+  async findByNameIsActive(name: string): Promise<Vehicle | null> {
+    const vehicle = db.vehicle.findFirst({
+      where: {
+        name: name,
+        is_active: true,
+      },
+    });
+    return vehicle;
   }
 }

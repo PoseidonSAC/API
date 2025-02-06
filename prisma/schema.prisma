@@ -61,15 +61,15 @@ model fishing {
 }
 
 model vehicle {
-  id        Int      @id @default(autoincrement())
-  name      String
-  user      String
-  plate     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  type      String
-  phone     String
-
+  id            Int             @id @default(autoincrement())
+  name          String
+  user          String
+  plate         String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  type          String
+  phone         String
+  is_active     Boolean         @default(true)
   vehicle_route vehicle_route[]
 }
 
@@ -134,7 +134,9 @@ model vehicle_route_detail {
   taxes_out        Float         @default(0)
   taxes_in         Float         @default(0)
   createdAt        DateTime      @default(now())
-  destination      String?
+  point_charge     String?       @map("destination")
+  who_destination  String?
+  destiny          String?
   updatedAt        DateTime      @updatedAt
   vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
 }

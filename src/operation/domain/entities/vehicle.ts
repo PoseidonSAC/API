@@ -5,6 +5,7 @@ export interface Vehicle {
   plate: string;
   type: string;
   phone: string;
+  is_active: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

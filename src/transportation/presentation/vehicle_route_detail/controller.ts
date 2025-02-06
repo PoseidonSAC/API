@@ -136,7 +136,9 @@ export class VehicleRouteDetailController {
             taxes_out: 0,
             dateInit: vehicleRoute.createdAt,
             dateEnd: null,
-            destination: null,
+            point_charge: null,
+            who_destination: null,
+            destiny: null,
           });
 
         res.status(200).json(vehicleRouteDetailCreated);

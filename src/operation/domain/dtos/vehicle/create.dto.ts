@@ -4,4 +4,5 @@ export interface VehicleCreateDto {
   plate: string;
   type: string;
   phone: string;
+  is_active: boolean;
 }
