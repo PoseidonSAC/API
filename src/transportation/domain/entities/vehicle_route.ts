@@ -2,6 +2,7 @@ import { VehicleRouteDetail } from "../entities/vehicle_route_detail";
 export interface VehicleRoute {
   id: number;
   state: string;
+  is_concluded: string;
   createdAt: Date;
   updatedAt: Date;
   id_vehicle: number;

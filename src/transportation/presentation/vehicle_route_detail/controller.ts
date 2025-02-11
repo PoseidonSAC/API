@@ -30,24 +30,6 @@ export class VehicleRouteDetailController {
       const id = Number(req.params.id);
       const vehicleRouteDetail = req.body;
       await this.vehicleRouteDetailRepository.update(id, vehicleRouteDetail);
-      const updatedVehicleRouteUpdated =
-        await this.vehicleRouteDetailRepository.findById(id);
-      if (!updatedVehicleRouteUpdated) {
-        res.status(400).json({ message: "Vehicle route not found." });
-        return;
-      }
-      const updatedVehicleRoute = await this.vehicleRoute.findById(
-        updatedVehicleRouteUpdated.id_vehicle_route
-      );
-      if (!updatedVehicleRoute) {
-        res.status(400).json({ message: "Vehicle route not found." });
-        return;
-      }
-      await this.vehicleRoute.update(updatedVehicleRoute.id, {
-        ...updatedVehicleRoute,
-        createdAt: updatedVehicleRouteUpdated.dateInit,
-        id_charge_operation: 0,
-      });
 
       res.status(204).send();
       return;

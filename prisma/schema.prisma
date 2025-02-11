@@ -115,6 +115,7 @@ model vehicle_route {
   id                     Int                        @id @default(autoincrement())
   id_vehicle             Int
   state                  String
+  is_concluded           String                     @default("NO")
   createdAt              DateTime                   @default(now())
   updatedAt              DateTime                   @updatedAt
   vehicle                vehicle                    @relation(fields: [id_vehicle], references: [id])

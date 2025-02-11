@@ -87,7 +87,7 @@ export class VehicleRouteDetailRepository {
           id: vehicleRouteDetail.id,
           id_vehicle_route: vehicleRouteDetail.id_vehicle_route,
           dateInit: vehicleRouteDetail.dateInit,
-          destination: vehicleRouteDetail.point_charge,
+          point_charge: vehicleRouteDetail.point_charge,
           vehicle: vehicleRouteDetail.vehicle_route.vehicle.name,
           vehicle_route_oil_usage:
             vehicleRouteDetail.vehicle_route.routes.reduce((acc, curr) => {

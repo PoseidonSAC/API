@@ -12,6 +12,7 @@ export class VehicleRouteRepository {
         id_vehicle: data.id_vehicle,
         state: data.state,
         createdAt: new Date(data.createdAt),
+        is_concluded: data.is_concluded,
       },
     });
     return vehicleRoute;
@@ -49,6 +50,7 @@ export class VehicleRouteRepository {
         id_vehicle: data.id_vehicle,
         state: data.state,
         createdAt: new Date(data.createdAt),
+        is_concluded: data.is_concluded,
       },
     });
     return vehicleRoute;
