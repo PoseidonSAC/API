@@ -15,6 +15,8 @@ export class CreateTravelUseCase {
     }
     const travel_created = await this.travelRepository.create(travel);
     await this.createChargerOperationUseCase.execute(travel_created.id);
-    return travel_created;
+    const travel_created_with_charger_operation =
+      await this.travelRepository.findById(travel_created.id);
+    return travel_created_with_charger_operation;
   }
 }

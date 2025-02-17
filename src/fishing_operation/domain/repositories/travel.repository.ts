@@ -4,7 +4,6 @@ import { TravelCreateDto } from "../dtos/travel/create.dto";
 
 export class TravelRepository {
   async create(travel: TravelCreateDto): Promise<Travel> {
-    console.log(travel);
     const travel_created = await db.travel.create({
       data: {
         oil_charge: travel.oil_charge,
@@ -24,11 +23,18 @@ export class TravelRepository {
       where: {
         id: id,
       },
+      include: {
+        charger_operation: true,
+      },
     });
     return travel;
   }
   async findAll(): Promise<Travel[]> {
-    const travel = await db.travel.findMany();
+    const travel = await db.travel.findMany({
+      include: {
+        charger_operation: true,
+      },
+    });
     return travel;
   }
 

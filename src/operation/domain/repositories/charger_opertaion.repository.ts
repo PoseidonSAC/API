@@ -4,7 +4,6 @@ import { ChargerOperationCreateDto } from "../dtos/charger_opetaion/create.dto";
 
 export class ChargerOperationRepository {
   async create(id_travel: number): Promise<ChargerOperation> {
-    console.log("id_travel", id_travel);
     const chargerOperation_created = await db.charger_operation.create({
       data: {
         id_travel: id_travel,
@@ -15,6 +14,7 @@ export class ChargerOperationRepository {
         helper: 0,
         travel_cost: 0,
         weight: 0,
+        date_canceled: null,
       },
     });
     return chargerOperation_created;

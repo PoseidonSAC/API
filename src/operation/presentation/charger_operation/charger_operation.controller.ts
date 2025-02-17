@@ -40,7 +40,6 @@ export class ChargerOperationController {
     try {
       const id = Number(req.params.id);
       const chargerOperation = req.body;
-      console.log(chargerOperation);
       await this.updateChargerOperationUseCase.execute(id, chargerOperation);
       res.status(204).send();
       return;
