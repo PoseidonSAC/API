@@ -121,6 +121,7 @@ export class VehicleRouteDetailController {
             point_charge: null,
             who_destination: null,
             destiny: null,
+            id_next_route: null,
           });
 
         res.status(200).json(vehicleRouteDetailCreated);
