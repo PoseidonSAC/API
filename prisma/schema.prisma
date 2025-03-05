@@ -128,18 +128,21 @@ model vehicle_route {
 }
 
 model vehicle_route_detail {
-  id               Int           @id @default(autoincrement())
-  id_vehicle_route Int           @unique
-  dateInit         DateTime      @default(now())
-  dateEnd          DateTime?
-  taxes_out        Float         @default(0)
-  taxes_in         Float         @default(0)
-  createdAt        DateTime      @default(now())
-  point_charge     String?       @map("destination")
-  who_destination  String?
-  destiny          String?
-  updatedAt        DateTime      @updatedAt
-  vehicle_route    vehicle_route @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+  id                   Int                    @id @default(autoincrement())
+  id_vehicle_route     Int                    @unique
+  dateInit             DateTime               @default(now())
+  dateEnd              DateTime?
+  taxes_out            Float                  @default(0)
+  taxes_in             Float                  @default(0)
+  createdAt            DateTime               @default(now())
+  point_charge         String?                @map("destination")
+  who_destination      String?
+  destiny              String?
+  updatedAt            DateTime               @updatedAt
+  id_next_route        Int?
+  next_route           vehicle_route_detail?  @relation("NextRoute", fields: [id_next_route], references: [id])
+  vehicle_route        vehicle_route          @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
+  vehicle_route_detail vehicle_route_detail[] @relation("NextRoute")
 }
 
 model vehicle_route_money {

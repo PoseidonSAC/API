@@ -5,7 +5,6 @@ export interface VehicleRoute {
   is_concluded: string;
   createdAt: Date;
   updatedAt: Date;
-  id_vehicle: number;
 }
 
 export interface VehicleName {

@@ -6,7 +6,7 @@ import cors from "cors";
 const corsOptions = {
   origin: [
     "https://app-production-82ec.up.railway.app",
-    "http://localhost:5173",
+    "http://localhost:5174",
   ],
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

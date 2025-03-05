@@ -17,6 +17,7 @@ export class CreateVehicleRouteUseCase {
       destiny: null,
       point_charge: null,
       who_destination: null,
+      id_next_route: null,
     });
     return vehicleRoute;
   }

@@ -10,4 +10,5 @@ export interface VehicleRouteDetail {
   destiny: string | null;
   createdAt: Date;
   updatedAt: Date;
+  id_next_route: number | null;
 }

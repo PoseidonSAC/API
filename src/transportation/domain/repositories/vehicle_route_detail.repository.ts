@@ -41,6 +41,7 @@ export class VehicleRouteDetailRepository {
         point_charge: data.point_charge ? data.point_charge : null,
         who_destination: data.who_destination ? data.who_destination : null,
         destiny: data.destiny ? data.destiny : null,
+        id_next_route: data.id_next_route ? data.id_next_route : null,
       },
     });
     return vehicleRouteDetail;
