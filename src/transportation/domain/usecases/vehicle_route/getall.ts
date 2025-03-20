@@ -67,7 +67,7 @@ function createdGroupbyNext(vehicleRoutes: VehicleRouteWithDetailAndVehicle[]) {
   });
 
   groups.forEach((group) => {
-    group.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    group.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   });
 
   groups.sort((a, b) => b[0].createdAt.getTime() - a[0].createdAt.getTime());
