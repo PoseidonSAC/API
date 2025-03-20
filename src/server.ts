@@ -2,11 +2,10 @@ import express from "express";
 import { Routes } from "./routes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-//all allowed origins
 const corsOptions = {
   origin: [
     "https://app-production-82ec.up.railway.app",
-    "http://localhost:5174",
+    "http://localhost:5173",
   ],
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

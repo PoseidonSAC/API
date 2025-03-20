@@ -11,4 +11,5 @@ export interface VehicleRouteDetail {
   createdAt: Date;
   updatedAt: Date;
   id_next_route: number | null;
+  changeGiven: boolean;
 }

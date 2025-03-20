@@ -18,6 +18,7 @@ export class CreateVehicleRouteUseCase {
       point_charge: null,
       who_destination: null,
       id_next_route: null,
+      changeGiven: false,
     });
     return vehicleRoute;
   }

@@ -143,6 +143,7 @@ model vehicle_route_detail {
   next_route           vehicle_route_detail?  @relation("NextRoute", fields: [id_next_route], references: [id])
   vehicle_route        vehicle_route          @relation(fields: [id_vehicle_route], references: [id], onDelete: Cascade)
   vehicle_route_detail vehicle_route_detail[] @relation("NextRoute")
+  changeGiven          Boolean                @default(false)
 }
 
 model vehicle_route_money {

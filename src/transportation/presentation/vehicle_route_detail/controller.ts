@@ -122,6 +122,7 @@ export class VehicleRouteDetailController {
             who_destination: null,
             destiny: null,
             id_next_route: null,
+            changeGiven: false,
           });
 
         res.status(200).json(vehicleRouteDetailCreated);

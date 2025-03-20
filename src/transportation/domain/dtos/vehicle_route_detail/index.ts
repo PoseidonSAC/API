@@ -8,6 +8,7 @@ export interface VehicleRouteDetailDto {
   who_destination: string | null;
   destiny: string | null;
   id_next_route: number | null;
+  changeGiven: boolean;
 }
 
 export interface VehicleRouteDetailResDto {
@@ -21,4 +22,5 @@ export interface VehicleRouteDetailResDto {
   taxes_out: number;
   taxes_in: number;
   id_next_route: number | null;
+  changeGiven: boolean;
 }

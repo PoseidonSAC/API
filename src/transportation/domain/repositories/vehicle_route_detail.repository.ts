@@ -42,6 +42,7 @@ export class VehicleRouteDetailRepository {
         who_destination: data.who_destination ? data.who_destination : null,
         destiny: data.destiny ? data.destiny : null,
         id_next_route: data.id_next_route ? data.id_next_route : null,
+        changeGiven: data.changeGiven,
       },
     });
     return vehicleRouteDetail;
