@@ -13,22 +13,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model travel {
-  id                    Int       @id @default(autoincrement())
-  code                  String
-  oil_charge            Int       @default(0)
-  oil_charger_price     Float     @default(0)
-  oil_consume           Int       @default(0)
-  oil_consume_price     Float     @default(0)
-  provisions_cost       Float     @default(0)
-  gas_cylinder_cost     Float     @default(0)
-  fishing_date_canceled DateTime?
-  oil_date_canceled     DateTime?
-  oil_remaining         Int       @default(0)
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-  is_concluded          Boolean   @default(false)
+model boat {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  is_active Boolean  @default(true)
+  travel    travel[]
+}
 
+model travel {
+  id                        Int                 @id @default(autoincrement())
+  code                      String
+  oil_charge                Int                 @default(0)
+  oil_charger_price         Float               @default(0)
+  oil_consume               Int                 @default(0)
+  oil_consume_price         Float               @default(0)
+  provisions_cost           Float               @default(0)
+  gas_cylinder_cost         Float               @default(0)
+  fishing_date_canceled     DateTime?
+  oil_date_canceled         DateTime?
+  oil_remaining             Int                 @default(0)
+  createdAt                 DateTime            @default(now())
+  updatedAt                 DateTime            @updatedAt
+  is_concluded              Boolean             @default(false)
+  id_boat                   Int                 @default(1)
+  boat                      boat                @relation(fields: [id_boat], references: [id], onDelete: Cascade)
   oil_vehicle               Int                 @default(0)
   oil_vehicle_price         Float               @default(0)
   oil_vehicle_date_canceled DateTime?

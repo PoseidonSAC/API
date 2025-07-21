@@ -14,4 +14,5 @@ export interface TravelCreateDto {
   oil_vehicle: number;
   oil_vehicle_price: number;
   oil_vehicle_date_canceled: string | null;
+  id_boat: number;
 }

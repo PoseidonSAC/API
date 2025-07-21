@@ -4,7 +4,6 @@ export class FishingRoutes {
   private router: Router = Router();
   private controller = new FishingController();
   constructor() {
-    this.router.get("/");
     this.router.post("/", this.controller.create);
     this.router.put("/:id", this.controller.update);
     this.router.delete("/:id", this.controller.delete);

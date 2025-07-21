@@ -6,6 +6,7 @@ import {
   GetByIdTravelUseCase,
   UpdateTravelUseCase,
   ResumeTravelUseCase,
+  GetAllByBoatIdTravelUseCase,
 } from "../../domain/usecases/travel";
 
 export class TravelController {
@@ -14,6 +15,7 @@ export class TravelController {
   private getAllTravelUseCase = new GetAllTravelUseCase();
   private getByIdTravelUseCase = new GetByIdTravelUseCase();
   private updateTravelUseCase = new UpdateTravelUseCase();
+  private getAllByBoatIdTravelUseCase = new GetAllByBoatIdTravelUseCase();
 
   create = async (req: Request, res: Response) => {
     try {
@@ -99,6 +101,22 @@ export class TravelController {
       const id = Number(req.params.id);
       const resume = await new ResumeTravelUseCase().execute(id);
       res.status(200).json(resume);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+        return;
+      }
+      res.status(400).json({ message: "Unexpected error." });
+      return;
+    }
+  };
+
+  getAllByBoatId = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const travels = await this.getAllByBoatIdTravelUseCase.execute(id);
+      res.status(200).json(travels);
       return;
     } catch (error) {
       if (error instanceof Error) {

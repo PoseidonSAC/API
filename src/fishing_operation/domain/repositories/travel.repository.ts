@@ -14,6 +14,7 @@ export class TravelRepository {
         gas_cylinder_cost: travel.gas_cylinder_cost,
         code: travel.code,
         createdAt: travel.createdAt,
+        id_boat: travel.id_boat,
       },
     });
     return travel_created;
@@ -25,6 +26,7 @@ export class TravelRepository {
       },
       include: {
         charger_operation: true,
+        boat: true,
       },
     });
     return travel;
@@ -69,5 +71,17 @@ export class TravelRepository {
         id: id,
       },
     });
+  }
+
+  async findAllByBoatId(boatId: number): Promise<Travel[]> {
+    const travels = await db.travel.findMany({
+      where: {
+        id_boat: boatId,
+      },
+      include: {
+        charger_operation: true,
+      },
+    });
+    return travels;
   }
 }
