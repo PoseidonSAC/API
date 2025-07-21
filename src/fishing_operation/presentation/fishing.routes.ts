@@ -9,9 +9,7 @@ export class FishingOperationRoutes {
   private OtherCostTravelRoutes = new OtherCostTravelRoutes();
   private BoatRoutes = new BoatRoutes();
   private router = Router();
-  /**
-   * Initializes the routes for fishing operations.
-   */
+
   constructor() {
     this.router.use("/fishing", this.FishingRoutes.getRoutes());
     this.router.use("/travel", this.TravelRoutes.getRoutes());
