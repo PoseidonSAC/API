@@ -10,8 +10,7 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "resolve": "npx prisma migrate resolve --applied 20250721081151_add_boat_relation_to_travel",
-    "migrate-and-build": "npm run migrate && npm run build",
-    "resolve-migrate-build": "npm run resolve && npm run migrate && npm run build"
+    "migrate-and-build": "npm run migrate && npm run build"
   },
   "keywords": [],
   "author": "",
