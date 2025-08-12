@@ -13,12 +13,14 @@ export class UserController {
     this.validateTokenUseCase = new ValidateTokenUseCase();
   }
   login = async (req: Request, res: Response) => {
-    const { token, user, refreshToken } = await this.sessionUseCase.execute(
-      req.body
-    );
+    const {
+      user,
+      token: access_token,
+      refreshToken,
+    } = await this.sessionUseCase.execute(req.body);
     try {
       res
-        .cookie("access_token", token, {
+        .cookie("access_token", access_token, {
           httpOnly: true,
         })
         .cookie("refresh_token", refreshToken, {

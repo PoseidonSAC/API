@@ -18,7 +18,7 @@ export class Session {
     const user = await this.userLogin.execute(input);
     const SECRET_JWT = ENV.SECRET_JWT;
     const token = jwt.sign({ ...user }, SECRET_JWT, {
-      expiresIn: "10min",
+      expiresIn: "1min",
     });
     const refreshToken = jwt.sign({ ...user }, SECRET_JWT, {
       expiresIn: "1d",
@@ -31,7 +31,16 @@ export class Session {
     const SECRET_JWT = ENV.SECRET_JWT;
     const user_res = { name: user.name, code: user.code, role: user.role };
     const token = jwt.sign({ user_res }, SECRET_JWT, {
-      expiresIn: "10min",
+      expiresIn: "1d",
+    });
+    return { user, token };
+  }
+
+  async accessToken(user: UserRes) {
+    const SECRET_JWT = ENV.SECRET_JWT;
+    const user_res = { name: user.name, code: user.code, role: user.role };
+    const token = jwt.sign({ user_res }, SECRET_JWT, {
+      expiresIn: "1min",
     });
     return { user, token };
   }
