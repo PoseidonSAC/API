@@ -18,10 +18,10 @@ export class Session {
     const user = await this.userLogin.execute(input);
     const SECRET_JWT = ENV.SECRET_JWT;
     const token = jwt.sign({ ...user }, SECRET_JWT, {
-      expiresIn: "1min",
+      expiresIn: "30min",
     });
     const refreshToken = jwt.sign({ ...user }, SECRET_JWT, {
-      expiresIn: "1d",
+      expiresIn: "7d",
     });
 
     return { user, token, refreshToken };
@@ -31,7 +31,7 @@ export class Session {
     const SECRET_JWT = ENV.SECRET_JWT;
     const user_res = { name: user.name, code: user.code, role: user.role };
     const token = jwt.sign({ user_res }, SECRET_JWT, {
-      expiresIn: "1d",
+      expiresIn: "7d",
     });
     return { user, token };
   }
@@ -40,7 +40,7 @@ export class Session {
     const SECRET_JWT = ENV.SECRET_JWT;
     const user_res = { name: user.name, code: user.code, role: user.role };
     const token = jwt.sign({ user_res }, SECRET_JWT, {
-      expiresIn: "1min",
+      expiresIn: "30min",
     });
     return { user, token };
   }

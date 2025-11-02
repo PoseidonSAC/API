@@ -12,7 +12,6 @@ export class AuthRoutes {
   setRoutes() {
     this.router.post("/login", this.controller.login);
     this.router.post("/register", this.controller.register);
-    this.router.post("/validate-token", this.controller.validateToken);
     this.router.post("/logout", this.controller.logout);
 
     return this.router;

@@ -1,26 +1,46 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { RequestHandler } from "express";
+import { Session } from "../../../auth/domain/usecases/session";
+import { ValidateTokenUseCase } from "../../../auth/domain/usecases/validate.token";
+import { Login } from "../../../auth/domain/usecases/login";
 
-export const jwtMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const token = req.cookies.access_token;
-  const SECRET_JWT = process.env.SECRET_JWT;
-  if (!SECRET_JWT) {
-    throw new Error("No se ha definido un SECRET_JWT");
+const sessionUseCase = new Session(new Login());
+const validateTokenUseCase = new ValidateTokenUseCase();
+
+export const jwtMiddleware: RequestHandler = async (req, res, next) => {
+  const sendUnauthorized = (error: string) => {
+    res.status(401).json({ error });
+  };
+
+  const accessToken = req.cookies.access_token;
+
+  if (accessToken) {
+    const { isValid, user } = await validateTokenUseCase.execute(accessToken);
+    if (isValid && user) {
+      req.body.session = user;
+      next();
+      return;
+    }
   }
-  if (!token) {
-    res.status(401).send("No se ha enviado un token");
+
+  const refreshToken = req.cookies.refresh_token;
+  if (!refreshToken) {
+    sendUnauthorized("Usuario no autenticado");
     return;
   }
-  try {
-    const data = jwt.verify(token, SECRET_JWT);
-    req.body.session = data;
-    next();
-  } catch (error) {
-    res.status(401).send("Token inválido");
+
+  const { isValid, user } = await validateTokenUseCase.execute(refreshToken);
+  if (!isValid || !user) {
+    sendUnauthorized("Refresh token inválido");
     return;
   }
+
+  const { token: newAccessToken } = await sessionUseCase.accessToken(user);
+  res.cookie("access_token", newAccessToken, {
+    httpOnly: true,
+    sameSite: "none",
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  req.body.session = user;
+  next();
 };
