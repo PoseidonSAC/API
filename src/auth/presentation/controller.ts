@@ -19,9 +19,13 @@ export class UserController {
       res
         .cookie("access_token", access_token, {
           httpOnly: true,
+          sameSite: "none",
+          secure: process.env.NODE_ENV === "production",
         })
         .cookie("refresh_token", refreshToken, {
           httpOnly: true,
+          sameSite: "none",
+          secure: process.env.NODE_ENV === "production",
         })
         .json(user);
       return;
