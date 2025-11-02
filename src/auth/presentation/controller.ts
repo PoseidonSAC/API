@@ -20,12 +20,12 @@ export class UserController {
         .cookie("access_token", access_token, {
           httpOnly: true,
           sameSite: "none",
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
         })
         .cookie("refresh_token", refreshToken, {
           httpOnly: true,
           sameSite: "none",
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
         })
         .json(user);
       return;
